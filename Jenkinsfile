@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo "Checking out code from GitHub..."
-                git branch: 'main', url: 'https://github.com/veronica-tes06/TicketMaster.git'
+                git branch: 'pseudo-main', url: 'https://github.com/veronica-tes06/TicketMaster.git'
             }
         }
 
