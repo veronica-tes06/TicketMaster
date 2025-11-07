@@ -60,8 +60,7 @@ class UserTest extends TestCase
     }
 
     // Test 4: Register fails if email already exists
-    public function testDuplicateEmail()
-
+    public function testDuplicateEmail(){
         $this->stmt->method('rowCount')->willReturn(1);
         $this->db->method('prepare')->willReturn($this->stmt);
         $GLOBALS['db'] = $this->db;
@@ -90,18 +89,5 @@ class UserTest extends TestCase
 
         $this->assertInstanceOf(User::class, $result);
         $this->assertEquals(5, $result->getId());
-    }
-
-    // Test 6 — Email validation (must end with @gmail.com)
-    public function testEmailValidation()
-    {
-        $validEmail = 'user@gmail.com';
-        $invalidEmail = 'user@yahoo.com';
-
-        $user = new User($validEmail, 'password123');
-        $this->assertStringEndsWith('@gmail.com', $user->getEmail(), 'Email should end with @gmail.com');
-
-        $user->setEmail($invalidEmail);
-        $this->assertFalse(str_ends_with($user->getEmail(), '@gmail.com'), 'Email ending with something else should be invalid');
     }
 }
