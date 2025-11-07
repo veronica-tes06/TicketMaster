@@ -35,6 +35,6 @@ INSERT INTO accounts (accEmail, accPassword, accBookings, accAdmin)
 VALUES ('sham@gmail.com', 'shamjamm', '', 0);
 
 INSERT INTO accounts (accEmail, accPassword, accBookings, accAdmin)
-VALUES ('admin@gmail.com', 'admin', '', 1);
+VALUES ('admin@gmail.com', 'adminadmin', '', 1);
 
 select * from accounts;
