@@ -1,0 +1,40 @@
+CREATE DATABASE IF NOT EXISTS ticketmaster;
+USE ticketmaster;
+
+DROP TABLE IF EXISTS accounts;
+
+CREATE TABLE IF NOT EXISTS `accounts` (
+  `accID` INT AUTO_INCREMENT PRIMARY KEY,
+  `accEmail` VARCHAR(40) NOT NULL,
+  `accPassword` VARCHAR(20) NOT NULL,
+  `accBookings` VARCHAR(100),
+  `accAdmin` BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+#DROP TABLE IF EXISTS events;
+
+CREATE TABLE IF NOT EXISTS `events` (
+  `eventID` INT AUTO_INCREMENT PRIMARY KEY,
+  `eventName` VARCHAR(100) NOT NULL,
+  `eventLocation` VARCHAR(100) NOT NULL,
+  `eventDate` VARCHAR(100) NOT NULL,
+  `eventTime` VARCHAR(100) NOT NULL,
+  `eventTicketMaxAMT` VARCHAR(100) NOT NULL,
+  `eventTicketMinAMT` VARCHAR(100) NOT NULL
+);
+
+#DROP TABLE IF EXISTS eventDetails;
+
+CREATE TABLE IF NOT EXISTS `eventDetails` (
+  `accID` INT NOT NULL,
+  `eventID` INT NOT NULL,
+  `eventTicketAMT` VARCHAR(100) NOT NULL
+);
+
+INSERT INTO accounts (accEmail, accPassword, accBookings, accAdmin)
+VALUES ('sham@gmail.com', 'shamjamm', '', 0);
+
+INSERT INTO accounts (accEmail, accPassword, accBookings, accAdmin)
+VALUES ('admin@gmail.com', 'admin', '', 1);
+
+select * from accounts;

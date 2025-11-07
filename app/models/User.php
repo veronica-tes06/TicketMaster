@@ -54,7 +54,7 @@ class User {
         $insert = $db->prepare("INSERT INTO accounts (accEmail, accPassword, accBookings, accAdmin) VALUES (?, ?, '', 0)");
         if ($insert->execute([$this->email, $this->password])) {
             $this->id = $db->lastInsertId();
-            return $this;
+            return true;
         }
         return false;
     }
