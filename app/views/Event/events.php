@@ -1,17 +1,23 @@
 <?php
+session_start();
+require_once __DIR__ . '/../../config/connect.php';
+require_once __DIR__ . '/../../models/Event.php';
+
 // User MUST be logged in
 if (!isset($_SESSION['user'])) {
     header("Location: ../User/login.php");
     exit;
 }
 
+//making an instance of the Event model to get all events
+$eventModel = new Event();
+$events = $eventModel->all($_SESSION['user']['accAdmin']);
+
 // User session data
 $accID       = $_SESSION['user']['accID'];
 $accEmail    = $_SESSION['user']['accEmail'];
 $accAdmin    = $_SESSION['user']['accAdmin'];
 $accBookings = $_SESSION['user']['bookings'] ?? []; //or since if they register their bookings will be empty
-
-// $events is supplied by EventController
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,14 +45,13 @@ $accBookings = $_SESSION['user']['bookings'] ?? []; //or since if they register 
             <td><?= htmlspecialchars($event['eventDate']) ?></td>
             <td><?= htmlspecialchars($event['eventTime']) ?></td>
 
-            <!-- busted ? -->
+            <!-- TODO: View Event functionality to be completed -->
             <td>
                 <form action="../Event/viewEvent.php" method="POST" style="display:inline;">
                     <input type="hidden" name="eventID" value="<?= $event['eventID'] ?>">
                     <button type="submit">View Event</button>
                 </form>
             </td>
-            <!-- busted ? -->
         </tr>
     <?php endforeach; ?>
 </table>

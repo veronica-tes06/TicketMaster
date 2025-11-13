@@ -1,11 +1,17 @@
 <?php
+session_start();
+require_once __DIR__ . '/../../config/connect.php';
+require_once __DIR__ . '/../../models/Event.php';
+
 // Only admin can access
 if (!isset($_SESSION['user']) || $_SESSION['user']['accAdmin'] != 1) {
     header("Location: ../User/login.php");
     exit;
 }
 
-// $events is supplied by EventController
+//making an instance of the Event model to get all events
+$eventModel = new Event();
+$events = $eventModel->all(true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,7 +48,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['accAdmin'] != 1) {
             <td><?= htmlspecialchars($event['eventTicketMaxAMT']) ?></td>
             <td><?= htmlspecialchars($event['eventTicketMinAMT']) ?></td>
 
-             <!-- busted ? -->
+            <!-- TODO: Edit and Delete Event functionality to be completed -->
             <td>
                 <a href="eventEdit.php?id=<?= $event['eventID'] ?>">Edit</a> |
                 <a href="eventDelete.php?id=<?= $event['eventID'] ?>"
@@ -50,7 +56,6 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['accAdmin'] != 1) {
                    Delete
                 </a>
             </td>
-             <!-- busted -->
         </tr>
     <?php endforeach; ?>
 </table>

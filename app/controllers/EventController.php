@@ -81,17 +81,8 @@ class EventController
     }
 
     //make an event method
-    public function createEvent()
+    public function createEvent($name, $location, $date, $time, $performer, $tickets)
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return null;
-
-        $name = trim($_POST['name']);
-        $location = trim($_POST['location']);
-        $date = trim($_POST['date']);
-        $time = trim($_POST['time']);
-        $performer = trim($_POST['performer']);
-        $tickets = (int)$_POST['tickets'];
-
         //validation
         $error = $this->validateEvent($name, $location, $date, $time, $performer, $tickets);
         if ($error) return $error;
