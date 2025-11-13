@@ -7,15 +7,15 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `accID` INT AUTO_INCREMENT PRIMARY KEY,
   `accEmail` VARCHAR(40) NOT NULL,
   `accPassword` VARCHAR(20) NOT NULL,
-  `accBookings` VARCHAR(100),
   `accAdmin` BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-#DROP TABLE IF EXISTS events;
+DROP TABLE IF EXISTS events;
 
 CREATE TABLE IF NOT EXISTS `events` (
   `eventID` INT AUTO_INCREMENT PRIMARY KEY,
   `eventName` VARCHAR(100) NOT NULL,
+  `performer` VARCHAR(100) NOT NULL,
   `eventLocation` VARCHAR(100) NOT NULL,
   `eventDate` VARCHAR(100) NOT NULL,
   `eventTime` VARCHAR(100) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `eventTicketMinAMT` VARCHAR(100) NOT NULL
 );
 
-#DROP TABLE IF EXISTS eventDetails;
+DROP TABLE IF EXISTS eventDetails;
 
 CREATE TABLE IF NOT EXISTS `eventDetails` (
   `accID` INT NOT NULL,
@@ -31,10 +31,30 @@ CREATE TABLE IF NOT EXISTS `eventDetails` (
   `eventTicketAMT` VARCHAR(100) NOT NULL
 );
 
-INSERT INTO accounts (accEmail, accPassword, accBookings, accAdmin)
-VALUES ('sham@gmail.com', 'shamjamm', '', 0);
+INSERT INTO accounts (accEmail, accPassword, accAdmin)
+VALUES ('sham@gmail.com', 'shamjamm', 0);
 
-INSERT INTO accounts (accEmail, accPassword, accBookings, accAdmin)
-VALUES ('admin@gmail.com', 'adminadmin', '', 1);
+INSERT INTO accounts (accEmail, accPassword, accAdmin)
+VALUES ('admin@gmail.com', 'adminadmin', 1);
 
-select * from accounts;
+INSERT INTO events (eventName, eventLocation,performer, eventDate, eventTime, eventTicketMaxAMT, eventTicketMinAMT)
+VALUES 
+('Sham\'s Jam', 'His Kitchen','Sham', '14-11-2025', '19:30', '5000', '0'),
+('The Weeknd', 'Madison Square Garden','TheWeeknd', '01-01-2026', '20:30', '30000', '0'),
+('before', 'before','ghost of past', '01-01-2021', '20:30', '30000', '0'),
+('after', 'after','ghost of future', '01-01-2026', '20:30', '30000', '0'),
+('Big Leagues', 'Croke Park','Sham', '19-02-2022', '9:00', '1444', '0');
+
+INSERT INTO eventDetails (accID, eventID, eventTicketAMT)
+VALUES
+(1, 1, '2'), 
+(1, 3, '4'), 
+(1, 4, '4'), 
+(2, 2, '1'), 
+(2, 3, '1'), 
+(2, 4, '1'), 
+(2, 2, '3'); 
+
+#select * from accounts;
+#select * from eventDetails;
+select * from events;

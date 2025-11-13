@@ -5,7 +5,7 @@ class User {
     private $email;
     private $password;
     private $isAdmin = 0;
-    private $bookings = '';
+    private $bookings = [];
 
     //constructor for the user class
     public function __construct($email = '', $password = '') {
@@ -35,7 +35,10 @@ class User {
         if ($row && $row['accPassword'] === $this->password) {
             $this->id = $row['accID'];
             $this->isAdmin = $row['accAdmin'];
-            $this->bookings = $row['accBookings'];
+            // Load bookings from eventDetails table
+            $b = $db->prepare("SELECT eventID FROM eventDetails WHERE accID = ?");
+            $b->execute([$this->id]);
+            $this->bookings = $b->fetchAll(PDO::FETCH_COLUMN);
             return true;
         }
         return false;
@@ -51,9 +54,10 @@ class User {
         if ($check->rowCount() > 0) return false;
 
         //insert the new user into the DB with their details if it passes the check
-        $insert = $db->prepare("INSERT INTO accounts (accEmail, accPassword, accBookings, accAdmin) VALUES (?, ?, '', 0)");
+        $insert = $db->prepare("INSERT INTO accounts (accEmail, accPassword, accAdmin) VALUES (?, ?, 0)");
         if ($insert->execute([$this->email, $this->password])) {
             $this->id = $db->lastInsertId();
+            $this->bookings = [];
             return true;
         }
         return false;

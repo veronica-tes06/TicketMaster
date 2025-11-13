@@ -14,7 +14,9 @@
  *Verify after user creates account they are moved to homescreen "view future events" page (events.php)
  *Admins are moved to adminEvents.php
  */
+
 require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../controllers/EventController.php';
 
 class AuthController {
     private function validateCredentials(string $email, string $password): array {
@@ -53,22 +55,19 @@ class AuthController {
                 'accID' => $user->getId(),
                 'accEmail' => $user->getEmail(),
                 'accAdmin' => (int)$user->isAdmin(),
-                'accBookings' => $user->getBookings(),
+                'bookings' => $user->getBookings(),
             ];
 
-            //redirect to appropriate page based on admin or not
+            //redirect to appropriate page based on admin or not (MVC now as of 13-11-2025)
             //SUPER IMPRTANT MAKE NEWTICKETMASTERREPOSITORY MATCH YOUR REPO FOLDER NAME
             //------------------------------------------------------------
-            if ($user->isAdmin()) {
-                header('Location: /NEWTICKETMASTERREPOSITORY/TicketMaster/app/views/adminEvents.php');
-                exit;
-            } else {
-                header('Location: /NEWTICKETMASTERREPOSITORY/TicketMaster/app/views/events.php');
-                exit;
-            }
+            $eventController = new EventController();
+            $eventController->showEventsPage($user->isAdmin());
+            exit;
             //------------------------------------------------------------
+            //old redirect method below before MVC was added
             //return null to show it worked (login returns string if failure, nothing (here) if it works)
-            return null;
+            //return null;
         }
 
         //only reached if login failed
@@ -91,22 +90,17 @@ class AuthController {
                 'accID'       => $user->getId(),
                 'accEmail'    => $user->getEmail(),
                 'accAdmin'    => 0,
-                'accBookings' => '',
+                'accBookings' => [],
             ];
 
             //redirect to appropriate page based on admin or not
-            //SUPER IMPRTANT MAKE NEWTICKETMASTERREPOSITORY MATCH YOUR REPO FOLDER NAME
+            //SUPER IMPRTANT MAKE NEWTICKETMASTERREPOSITORY MATCH YOUR REPO FOLDER NAME (not anymore hopefully)
             //------------------------------------------------------------
-            if ($user->isAdmin()) {
-                header('Location: /NEWTICKETMASTERREPOSITORY/TicketMaster/app/views/adminEvents.php');
-                exit;
-            } else {
-                header('Location: /NEWTICKETMASTERREPOSITORY/TicketMaster/app/views/events.php');
-                exit;
-            }
+            $eventController = new EventController();
+            $eventController->showEventsPage($user->isAdmin());
+            exit;
             //------------------------------------------------------------
         }
-
         //assumption kindof 
         return 'Email already associated with an account.';
     }
