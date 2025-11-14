@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 
+use PDO;
+
 class Event
 {
     private $id;

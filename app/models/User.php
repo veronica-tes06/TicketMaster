@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 
+use PDO;
+
 //making the user model class
 class User {
     private $id;

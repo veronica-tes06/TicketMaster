@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use App\controllers\AuthController;
+use App\Controllers\AuthController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

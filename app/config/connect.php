@@ -1,8 +1,8 @@
 <?php
 try {
-    $dsn = 'mysql:host=localhost;dbname=ticketmaster';
+    $dsn = 'mysql:host=localhost;port=3307;dbname=ticketmaster';
     $username = 'root';
-    $password = 'admin';
+    $password = '';
     $db = new PDO($dsn, $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {

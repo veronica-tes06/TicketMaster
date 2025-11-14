@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use App\controllers\AuthController;
+use App\Controllers\AuthController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -13,7 +13,6 @@ class RegisterTest extends TestCase
     {
         $this->db = $this->createMock(PDO::class);
         $this->auth = $this->getMockBuilder(AuthController::class)
-                           ->setConstructorArgs([$this->db])
                            ->onlyMethods(['register'])
                            ->getMock();
     }

@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PHP = 'C:\\xampp\\php\\php.exe'      // PHP executable
+        PHP = 'C:\\xampp\\php\\php_new\\php.exe'      // PHP executable
         XAMPP_PATH = 'C:\\xampp'             // XAMPP root folder
         HTDOCS_PATH = 'C:\\xampp\\htdocs\\projectEngineering\\TicketMaster' // Deployment folder
     }
@@ -30,9 +30,10 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo "Starting XAMPP (Apache + MySQL)..."
-                bat "${XAMPP_PATH}\\xampp_start.exe"
-
+                echo "Starting Apache and MySQL services..."
+                bat "net start Apache2.4 || echo Apache already running"
+                bat "net start MySQL || echo MySQL already running"
+                
                 echo "Running PHPUnit tests..."
                 bat "\"${PHP}\" vendor\\bin\\phpunit --configuration phpunit.xml"
             }
@@ -47,13 +48,16 @@ pipeline {
     }
 
     post {
+        always {
+            echo "Stopping services..."
+            bat "net stop Apache2.4 || echo Apache already stopped"
+            bat "net stop MySQL || echo MySQL already stopped"
+        }
         success {
             echo "Pipeline completed successfully!"
-            bat "${XAMPP_PATH}\\xampp_stop.exe"
         }
         failure {
             echo "Pipeline failed!"
-            bat "${XAMPP_PATH}\\xampp_stop.exe"
             mail to: 'a00320733@student.tus.ie, a00317717@student.tus.ie, a00322305@student.tus.ie, a00320562@student.tus.ie',
             subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}", 
             body: "Check Jenkins logs: ${env.BUILD_URL}" 

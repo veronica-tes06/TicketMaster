@@ -30,8 +30,8 @@ class UserTest extends TestCase
     {
         $userData = [
             'accID' => 1,
-            'accEmail' => 'user@gmail.com',
-            'accPassword' => 'password123',
+            'accEmail' => 'sham@gmail.com',
+            'accPassword' => 'shamjamm',
             'accAdmin' => 0,
             'accBookings' => '[]'
         ];
@@ -41,7 +41,7 @@ class UserTest extends TestCase
         $this->db->method('prepare')->willReturn($this->stmt);
         $GLOBALS['db'] = $this->db;
 
-        $user = new User('user@gmail.com', 'password123');
+        $user = new User('sham@gmail.com', 'shamjamm');
         $this->assertTrue($user->login());
         $this->assertEquals(1, $user->getId());
         $this->assertFalse($user->isAdmin());
@@ -50,12 +50,12 @@ class UserTest extends TestCase
     //Test 3 Login fails when password is incorrect
     public function testLoginFailsForWrongPassword()
     {
-        $userData = ['accEmail' => 'user@gmail.com', 'accPassword' => 'wrongpass'];
+        $userData = ['accEmail' => 'sham@gmail.com', 'accPassword' => 'shamjamm'];
         $this->stmt->method('fetch')->willReturn($userData);
         $this->db->method('prepare')->willReturn($this->stmt);
         $GLOBALS['db'] = $this->db;
 
-        $user = new User('user@gmail.com', 'password123');
+        $user = new User('sham@gmail.com', 'wrongpassword');
         $this->assertFalse($user->login());
     }
 
@@ -65,7 +65,7 @@ class UserTest extends TestCase
         $this->db->method('prepare')->willReturn($this->stmt);
         $GLOBALS['db'] = $this->db;
 
-        $user = new User('taken@gmail.com', 'pass123');
+        $user = new User('sham@gmail.com', 'shamjamm');
         $this->assertFalse($user->register());
     }
 
@@ -79,15 +79,15 @@ class UserTest extends TestCase
         $insert->method('execute')->willReturn(true);
 
         $this->db->method('prepare')
-            ->willReturnOnConsecutiveCalls($check, $insert);
+                ->willReturnOnConsecutiveCalls($check, $insert);
     $this->db->method('lastInsertId')->willReturn('5');
 
         $GLOBALS['db'] = $this->db;
 
-        $user = new User('new@gmail.com', 'securePass');
+        $user = new User('test_' . uniqid() . '@gmail.com', 'securePass');
         $result = $user->register();
 
-        $this->assertInstanceOf(User::class, $result);
-        $this->assertEquals(5, $result->getId());
+            $this->assertTrue($result);
+            $this->assertEquals(5, $user->getId());
     }
 }
