@@ -10,7 +10,8 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['accAdmin'] != 1) {
 }
 
 //making an instance of the Event model to get all events
-$eventModel = new Event();
+// Event model is namespaced under App\Models; use fully-qualified name here
+$eventModel = new \App\Models\Event();
 $events = $eventModel->all(true);
 ?>
 <!DOCTYPE html>

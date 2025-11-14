@@ -15,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     //making an instance of the AuthController so we can use its register method
-    $auth = new AuthController();
+    // AuthController is namespaced under App\Controllers; use fully-qualified name here
+    $auth = new \App\Controllers\AuthController();
     $result = $auth->register($email, $password);
 
     //if the result from rehister is an error string display it

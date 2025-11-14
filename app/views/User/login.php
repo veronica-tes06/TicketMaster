@@ -11,7 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     //making an instance of the AuthController so we can use its login method
-    $auth = new AuthController($db);
+    // AuthController is namespaced under App\Controllers; use fully-qualified name here
+    $auth = new \App\Controllers\AuthController();
     $result = $auth->login($email, $password);
 
     //if the result from login is an error string display it
