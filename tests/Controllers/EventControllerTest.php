@@ -1,9 +1,8 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use App\controllers\EventController;
+use App\Controllers\EventController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../app/controllers/EventController.php';
 
 class EventControllerTest extends TestCase
 {

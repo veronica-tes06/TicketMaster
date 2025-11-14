@@ -1,4 +1,5 @@
 <?php
+namespace App\Models;
 
 class Event
 {
@@ -75,7 +76,22 @@ class Event
 
         $stmt = $db->prepare("SELECT * FROM events WHERE eventID = ?");
         $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$row) {
+            return null;
+        }
+
+        $event = new Event(
+            $row['eventName'] ?? '',
+            $row['eventLocation'] ?? '',
+            $row['eventDate'] ?? '',
+            $row['eventTime'] ?? '',
+            $row['performer'] ?? '',
+            $row['eventTicketMaxAMT'] ?? 0,
+            $row['eventTicketMinAMT'] ?? 1
+        );
+        $event->id = $row['eventID'] ?? null;
+        return $event;
     }
 
     //find by name function
@@ -95,5 +111,46 @@ class Event
 
         $stmt = $db->prepare("DELETE FROM events WHERE eventID = ?");
         return $stmt->execute([$id]);
+    }
+
+    // Getters for properties (used in tests and elsewhere)
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    public function getPerformer()
+    {
+        return $this->performer;
+    }
+
+    public function getMaxTickets()
+    {
+        return $this->maxTickets;
+    }
+
+    public function getMinTickets()
+    {
+        return $this->minTickets;
     }
 }

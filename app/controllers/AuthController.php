@@ -13,7 +13,11 @@
  *Verify valid unique account id is created and all details correctly added to database (accounts table)
  *Verify after user creates account they are moved to homescreen "view future events" page (events.php)
  *Admins are moved to adminEvents.php
- */
+*/
+
+namespace App\Controllers;
+
+use App\Models\User;
 
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../controllers/EventController.php';

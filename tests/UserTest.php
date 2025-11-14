@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use App\models\User;
+use App\Models\User;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -80,7 +80,7 @@ class UserTest extends TestCase
 
         $this->db->method('prepare')
             ->willReturnOnConsecutiveCalls($check, $insert);
-        $this->db->method('lastInsertId')->willReturn(5);
+    $this->db->method('lastInsertId')->willReturn('5');
 
         $GLOBALS['db'] = $this->db;
 
