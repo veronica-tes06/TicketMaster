@@ -1,0 +1,25 @@
+<?php
+session_start();
+require_once __DIR__ . '/../../config/connect.php';
+require_once __DIR__ . '/../../controllers/EventController.php';
+require_once __DIR__ . '/../../models/Event.php';
+use App\Models\Event;
+
+if ($_SESSION["user"]["accAdmin"] != 1) {
+    header("Location: ../User/login.php");
+    exit;
+}
+
+if (!isset($_GET["id"])) {
+    die("no ID provided");
+}
+
+$event_id = $_GET["id"];
+if(Event::delete($event_id)) {
+    header("Location: ../views/Event/adminEvents.php?deleted=1");
+}else{
+    header("Location: ../views/Event/adminEvents.php?error=delete_failed");
+}
+
+?>
+<!--ive issues with the URL being found from the admin delete but im workin on it-->
