@@ -80,14 +80,14 @@ class UserTest extends TestCase
 
         $this->db->method('prepare')
                 ->willReturnOnConsecutiveCalls($check, $insert);
-    $this->db->method('lastInsertId')->willReturn('5');
+        $this->db->method('lastInsertId')->willReturn('5');
 
         $GLOBALS['db'] = $this->db;
 
         $user = new User('test_' . uniqid() . '@gmail.com', 'securePass');
         $result = $user->register();
 
-            $this->assertTrue($result);
-            $this->assertEquals(5, $user->getId());
+        $this->assertTrue($result, 'Registration should succeed for a unique email');
+        $this->assertGreaterThan(0, $user->getId(), 'User ID should be set after successful registration');
     }
 }

@@ -1,13 +1,31 @@
+/*
+Any variables that need to be changed when moving between environments should be defined in the environment section.
+You may set up jenkins to get the script from the repository, or you specify it directly in the pipeline configuration.
+If you change the variables, know that jenkins will be pulling the version of this file thats in the repository, not your changed one. You can comment out the 'checkout code' stage, and configure jenkins to use the local version of this file instead, or just specify the script directly in jenkins.
+
+Note: The git branch may need to be changed depending on which branch you want to build from.
+*/
+
 pipeline {
     agent any
 
     environment {
-        PHP = 'C:\\xampp\\php\\php_new\\php.exe'      // PHP executable
-        XAMPP_PATH = 'C:\\xampp'             // XAMPP root folder
-        HTDOCS_PATH = 'C:\\xampp\\htdocs\\projectEngineering\\TicketMaster' // Deployment folder
+        // ---- PROJECT PATHS ----
+        PHP = 'C:\\xampp\\php\\php_new\\php.exe'   // Path to PHP executable
+        XAMPP = 'C:\\xampp'                        // XAMPP main directory
+        HTDOCS = 'C:\\xampp\\htdocs\\projectEngineering\\TicketMaster'  // Deployment folder
+
+        // ---- MYSQL PATHS ----
+        MYSQL = 'C:\\xampp\\mysql\\bin\\mysql.exe' // MySQL executable
+        MYSQL_HOST = '127.0.0.1'
+        MYSQL_PORT = '3307'
+
+        // ---- DB NAMES ----
+        TEST_DB = 'ticketmaster_test'
     }
 
     stages {
+
         stage('Checkout Code') {
             steps {
                 echo "Checking out code from GitHub..."
@@ -19,10 +37,10 @@ pipeline {
             steps {
                 script {
                     if (fileExists('composer.json')) {
-                        echo "Installing dependencies with Composer..."
+                        echo "Installing dependencies using Composer..."
                         bat "composer install"
                     } else {
-                        echo "No composer.json found. Skipping dependency installation."
+                        echo "No composer.json file found. Skipping composer install."
                     }
                 }
             }
@@ -33,7 +51,17 @@ pipeline {
                 echo "Starting Apache and MySQL services..."
                 bat "net start Apache2.4 || echo Apache already running"
                 bat "net start MySQL || echo MySQL already running"
-                
+
+                echo "Preparing fresh test database: ${TEST_DB} ..."
+                bat """
+                    "${MYSQL}" --host=${MYSQL_HOST} --port=${MYSQL_PORT} -u root -e "DROP DATABASE IF EXISTS ${TEST_DB}; CREATE DATABASE ${TEST_DB};"
+                """
+
+                echo "Importing test schema..."
+                bat """
+                    "${MYSQL}" --host=${MYSQL_HOST} --port=${MYSQL_PORT} -u root ${TEST_DB} < app\\config\\test_database.sql
+                """
+
                 echo "Running PHPUnit tests..."
                 bat "\"${PHP}\" vendor\\bin\\phpunit --configuration phpunit.xml"
             }
@@ -41,8 +69,8 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo "Deploying PHP application to htdocs..."
-                bat "xcopy /Y /E * ${HTDOCS_PATH}\\"
+                echo "Deploying application to XAMPP htdocs..."
+                bat "xcopy /Y /E /I . \"${HTDOCS}\\\""
             }
         }
     }
@@ -58,9 +86,9 @@ pipeline {
         }
         failure {
             echo "Pipeline failed!"
-            mail to: 'a00320733@student.tus.ie, a00317717@student.tus.ie, a00322305@student.tus.ie, a00320562@student.tus.ie',
-            subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}", 
-            body: "Check Jenkins logs: ${env.BUILD_URL}" 
+            // mail to: 'a00320733@student.tus.ie, a00317717@student.tus.ie, a00322305@student.tus.ie, a00320562@student.tus.ie',
+            // subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}", 
+            // body: "Check Jenkins logs: ${env.BUILD_URL}" 
         }
     }
 }
