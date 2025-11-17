@@ -2,6 +2,7 @@
 Any variables that need to be changed when moving between environments should be defined in the environment section.
 You may set up jenkins to get the script from the repository, or you specify it directly in the pipeline configuration.
 If you change the variables, know that jenkins will be pulling the version of this file thats in the repository, not your changed one. You can comment out the 'checkout code' stage, and configure jenkins to use the local version of this file instead, or just specify the script directly in jenkins.
+Comment out any stages that involve services not used in your setup (eg sonarcloud analysis) or modify them to fit your environment.
 
 Note: The git branch may need to be changed depending on which branch you want to build from.
 */
@@ -35,12 +36,14 @@ pipeline {
 
         stage('Build') {
             steps {
-                script {
-                    if (fileExists('composer.json')) {
-                        echo "Installing dependencies using Composer..."
-                        bat "composer install"
-                    } else {
-                        echo "No composer.json file found. Skipping composer install."
+                dir("${HTDOCS}") {
+                    script {
+                        if (fileExists('composer.json')) {
+                            echo "Installing dependencies with Composer..."
+                            bat "composer install --no-interaction --no-progress --ansi"
+                        } else {
+                            echo "No composer.json found. Skipping dependency installation."
+                        }
                     }
                 }
             }
@@ -57,13 +60,32 @@ pipeline {
                     "${MYSQL}" --host=${MYSQL_HOST} --port=${MYSQL_PORT} -u root -e "DROP DATABASE IF EXISTS ${TEST_DB}; CREATE DATABASE ${TEST_DB};"
                 """
 
-                echo "Importing test schema..."
-                bat """
-                    "${MYSQL}" --host=${MYSQL_HOST} --port=${MYSQL_PORT} -u root ${TEST_DB} < app\\config\\test_database.sql
-                """
+                dir("${HTDOCS}") {
+                    echo "Importing test schema..."
+                    bat """
+                        "${MYSQL}" --host=${MYSQL_HOST} --port=${MYSQL_PORT} -u root ${TEST_DB} < app\\config\\test_database.sql
+                    """
 
-                echo "Running PHPUnit tests..."
-                bat "\"${PHP}\" vendor\\bin\\phpunit --configuration phpunit.xml"
+                    echo "Ensuring coverage and test result folders exist..."
+                    bat "if not exist build\\coverage mkdir build\\coverage"
+
+                    echo "Running PHPUnit tests..."
+                    bat "\"${PHP}\" vendor\\bin\\phpunit --configuration phpunit.xml --coverage-clover build\\coverage\\clover.xml"
+                }
+            }
+        }
+
+        stage('SonarCloud Analysis') {
+            steps {
+                withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+                    dir("${HTDOCS}") {
+                        withSonarQubeEnv('SonarCloud') {
+                            echo "Running SonarCloud analysis using sonar-project.properties..."
+                            // Pass the Clover file for coverage
+                            bat "sonar-scanner -Dsonar.login=%SONAR_TOKEN% -Dsonar.php.coverage.reportPaths=build\\coverage\\clover.xml"
+                        }
+                    }
+                }
             }
         }
 

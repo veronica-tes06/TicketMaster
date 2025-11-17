@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="vendor/autoload.php"
-         colors="true"
-         stopOnFailure="false">
+<phpunit bootstrap="vendor/autoload.php" colors="true" stopOnFailure="false">
+
     <php>
-        <!-- Point tests to dedicated test database -->
         <env name="DB_HOST" value="127.0.0.1"/>
         <env name="DB_PORT" value="3307"/>
         <env name="DB_NAME" value="ticketmaster_test"/>
         <env name="DB_USER" value="root"/>
         <env name="DB_PASS" value=""/>
     </php>
+
     <testsuites>
         <testsuite name="TicketMaster Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
+
+    <coverage>
+        <include>
+            <directory suffix=".php">app</directory>
+        </include>
+        <report>
+            <clover outputFile="build/coverage/clover.xml"/>
+        </report>
+    </coverage>
+
 </phpunit>

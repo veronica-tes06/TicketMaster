@@ -1,6 +1,10 @@
 # Composer dependencies
 /vendor
 
+# PHPUnit code coverage reports
+.scannerwork/
+
+
 # PHPUnit cache
 .phpunit.result.cache
 
