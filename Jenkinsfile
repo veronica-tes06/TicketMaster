@@ -124,8 +124,7 @@ pipeline {
                         withSonarQubeEnv('SonarCloud') {
                             echo "Running SonarCloud analysis using sonar-project.properties..."
                             // Pass the Clover file for coverage
-                            bat "sonar-scanner -Dsonar.login=%SONAR_TOKEN% -Dsonar.php.coverage.reportPaths=build\\coverage\\clover.xml
-                            -Dsonar.php.infection.reportPath=build/infection/infection-log.txt"
+                            bat "sonar-scanner -Dsonar.login=%SONAR_TOKEN% -Dsonar.php.coverage.reportPaths=build\\coverage\\clover.xml -Dsonar.php.infection.reportPath=build/infection/infection-log.txt"
                         }
                     }
                 }
