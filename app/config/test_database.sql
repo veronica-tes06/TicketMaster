@@ -42,7 +42,7 @@ VALUES ('admin@gmail.com', 'adminadmin', 1);
 -- Seed events (dates relative to 2025-11-16 make two future events)
 INSERT INTO events (eventName, eventLocation, performer, eventDate, eventTime, eventTicketMaxAMT, eventTicketMinAMT)
 VALUES 
-('Sham\'s Jam', 'His Kitchen', 'Sham', '14-11-2025', '19:30', '5000', '0'),
+('Shams Jam', 'His Kitchen', 'Sham', '14-11-2025', '19:30', '5000', '0'),
 ('The Weeknd', 'Madison Square Garden', 'TheWeeknd', '01-01-2026', '20:30', '30000', '0'),
 ('before', 'before', 'ghost of past', '01-01-2021', '20:30', '30000', '0'),
 ('after', 'after', 'ghost of future', '01-01-2026', '20:30', '30000', '0'),

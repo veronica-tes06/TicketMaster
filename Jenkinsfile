@@ -10,27 +10,51 @@ Note: The git branch may need to be changed depending on which branch you want t
 pipeline {
     agent any
 
+    /**
+    //VERONICA ENVIORNMENT PATHS
     environment {
         // ---- PROJECT PATHS ----
-        PHP = 'C:\\xampp\\php\\php_new\\php.exe'   // Path to PHP executable
+
+        PHP = 'C:\\xampp\\php\\php_new\\php.exe'   // VERONICA Path to PHP executable
+
         XAMPP = 'C:\\xampp'                        // XAMPP main directory
-        HTDOCS = 'C:\\xampp\\htdocs\\projectEngineering\\TicketMaster'  // Deployment folder
+        HTDOCS = 'C:\\xampp\\htdocs\\projectEngineering\\TicketMaster'  // VERONICA Deployment folder
 
         // ---- MYSQL PATHS ----
-        MYSQL = 'C:\\xampp\\mysql\\bin\\mysql.exe' // MySQL executable
+        MYSQL = 'C:\\xampp\\mysql\\bin\\mysql.exe' // VERONICA MySQL executable
+        MYSQL_PORT = '3307' // VERONICA MySQL Port
+
+        // ---- DB NAMES ----
+        TEST_DB = 'ticketmaster_test'
+    }**/
+    
+    //SHAM ENVIORNMENT PATHS
+    environment {
+        // ---- PROJECT PATHS ----
+        PHP = 'C:\\xampp\\php\\php.exe'   // SHAM Path to PHP executable
+
+        XAMPP = 'C:\\xampp'                        // XAMPP main directory
+
+        HTDOCS = 'C:\\xampp\\htdocs\\NewTicketMasterRepository\\TicketMaster' // SHAM Deployment folder
+
+        // ---- MYSQL PATHS ----
         MYSQL_HOST = '127.0.0.1'
-        MYSQL_PORT = '3307'
+        MYSQL_PORT = '3306' // SHAM MySQL Port
+        MYSQL_USER = 'root' //SHAM user
+        MYSQL_PASSWORD = 'admin' //SHAM password
 
         // ---- DB NAMES ----
         TEST_DB = 'ticketmaster_test'
     }
+
+    //check stage test
 
     stages {
 
         stage('Checkout Code') {
             steps {
                 echo "Checking out code from GitHub..."
-                git branch: 'pseudo-main', url: 'https://github.com/veronica-tes06/TicketMaster.git'
+                git branch: 'events', url: 'https://github.com/veronica-tes06/TicketMaster.git'
             }
         }
 
@@ -57,13 +81,19 @@ pipeline {
 
                 echo "Preparing fresh test database: ${TEST_DB} ..."
                 bat """
-                    "${MYSQL}" --host=${MYSQL_HOST} --port=${MYSQL_PORT} -u root -e "DROP DATABASE IF EXISTS ${TEST_DB}; CREATE DATABASE ${TEST_DB};"
+                    "${MYSQL}" --host=${MYSQL_HOST} --port=${MYSQL_PORT} -u ${MYSQL_USER} -p${MYSQL_PASSWORD} -e "DROP DATABASE IF EXISTS ${TEST_DB}; CREATE DATABASE ${TEST_DB};"
                 """
+                //bat """
+                //    "${MYSQL}" --host=${MYSQL_HOST} --port=${MYSQL_PORT} -u root -e "DROP DATABASE IF EXISTS ${TEST_DB}; CREATE DATABASE ${TEST_DB};"
+                //"""
 
                 dir("${HTDOCS}") {
                     echo "Importing test schema..."
+                    // bat """
+                    //     "${MYSQL}" --host=${MYSQL_HOST} --port=${MYSQL_PORT} -u root ${TEST_DB} < app\\config\\test_database.sql
+                    // """
                     bat """
-                        "${MYSQL}" --host=${MYSQL_HOST} --port=${MYSQL_PORT} -u root ${TEST_DB} < app\\config\\test_database.sql
+                        "${MYSQL}" --host=${MYSQL_HOST} --port=${MYSQL_PORT} -u ${MYSQL_USER} -p${MYSQL_PASSWORD} ${TEST_DB} < app\\config\\test_database.sql
                     """
 
                     echo "Ensuring coverage and test result folders exist..."
@@ -77,7 +107,7 @@ pipeline {
 
         stage('Mutation Testing (Infection)') {
             steps {
-                dir("${HTDOCS_PATH}") {
+                dir("${HTDOCS}") {
                     echo "Running Infection mutation tests..."
                     // Ensure infection report directory exists
                     bat "if not exist build\\infection mkdir build\\infection"
@@ -95,8 +125,7 @@ pipeline {
                             echo "Running SonarCloud analysis using sonar-project.properties..."
                             // Pass the Clover file for coverage
                             bat "sonar-scanner -Dsonar.login=%SONAR_TOKEN% -Dsonar.php.coverage.reportPaths=build\\coverage\\clover.xml
-                            -Dsonar.php.infection.reportPath=build/infection/infection-log.txt
-"
+                            -Dsonar.php.infection.reportPath=build/infection/infection-log.txt"
                         }
                     }
                 }
