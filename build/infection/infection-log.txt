@@ -1,0 +1,63 @@
+Note: Pass `--log-verbosity=all` to log information about killed and errored mutants.
+Note: Pass `--debug` to log test-framework output.
+
+Escaped mutants:
+================
+
+1) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\Event.php:23    [M] DecrementInteger [ID] f874cb2274665645e87dda91dd8dde1e
+
+@@ @@
+     private $performer;
+     private $maxTickets;
+     private $minTickets;
+-    public function __construct($name = '', $location = '', $date = '', $time = '', $performer = '', $maxTickets = 0, $minTickets = 1)
++    public function __construct($name = '', $location = '', $date = '', $time = '', $performer = '', $maxTickets = -1, $minTickets = 1)
+     {
+         $this->name = $name;
+         $this->location = $location;
+
+
+2) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\Event.php:23    [M] IncrementInteger [ID] 35ceb309bcb439192e50cb1ee6600133
+
+@@ @@
+     private $performer;
+     private $maxTickets;
+     private $minTickets;
+-    public function __construct($name = '', $location = '', $date = '', $time = '', $performer = '', $maxTickets = 0, $minTickets = 1)
++    public function __construct($name = '', $location = '', $date = '', $time = '', $performer = '', $maxTickets = 1, $minTickets = 1)
+     {
+         $this->name = $name;
+         $this->location = $location;
+
+
+3) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\User.php:25    [M] ReturnRemoval [ID] a26565107319dbf2c83cf1856c4f1cc6
+
+@@ @@
+     }
+     public function getBookings()
+     {
+-        return $this->bookings;
++        
+     }
+     public function setEmail($email)
+     {
+
+
+4) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\User.php:44    [M] MethodCallRemoval [ID] 3273b5a2f43b16c0cb228c82fa31ceeb
+
+@@ @@
+             $this->isAdmin = $row['accAdmin'];
+             // Load bookings from eventDetails table
+             $b = $db->prepare("SELECT eventID FROM eventDetails WHERE accID = ?");
+-            $b->execute([$this->id]);
++            
+             $this->bookings = $b->fetchAll(PDO::FETCH_COLUMN);
+             return true;
+         }
+
+
+Timed Out mutants:
+==================
+
+Skipped mutants:
+================

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1763404094">
-  <project timestamp="1763404094">
+<coverage generated="1763743934">
+  <project timestamp="1763743934">
     <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\AuthController.php">
       <class name="App\Controllers\AuthController" namespace="global">
         <metrics complexity="14" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="40" coveredstatements="0" elements="43" coveredelements="0"/>

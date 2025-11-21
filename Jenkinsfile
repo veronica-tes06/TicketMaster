@@ -75,6 +75,18 @@ pipeline {
             }
         }
 
+        stage('Mutation Testing (Infection)') {
+            steps {
+                dir("${HTDOCS_PATH}") {
+                    echo "Running Infection mutation tests..."
+                    // Ensure infection report directory exists
+                    bat "if not exist build\\infection mkdir build\\infection"
+                    // Run Infection
+                    bat "\"${PHP}\" vendor\\bin\\infection --configuration=infection.json5 --min-msi=60 --min-covered-msi=80"
+                }
+            }
+        }
+
         stage('SonarCloud Analysis') {
             steps {
                 withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
@@ -82,7 +94,9 @@ pipeline {
                         withSonarQubeEnv('SonarCloud') {
                             echo "Running SonarCloud analysis using sonar-project.properties..."
                             // Pass the Clover file for coverage
-                            bat "sonar-scanner -Dsonar.login=%SONAR_TOKEN% -Dsonar.php.coverage.reportPaths=build\\coverage\\clover.xml"
+                            bat "sonar-scanner -Dsonar.login=%SONAR_TOKEN% -Dsonar.php.coverage.reportPaths=build\\coverage\\clover.xml
+                            -Dsonar.php.infection.reportPath=build/infection/infection-log.txt
+"
                         }
                     }
                 }
