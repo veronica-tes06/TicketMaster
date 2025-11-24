@@ -102,11 +102,12 @@ class EventController
     //show 1 event method
     public function showSingleEvent($id)
     {
-        $event = new Event();
-        $event = $event->find($id);
+        $eventM = new Event();
+        $event = $eventM->find($id);
+
+        $accAdmin = $_SESSION['user']['accAdmin'] ?? 0;
 
         require EVENT_VIEW . '/viewEvent.php';
-        exit;
     }
 
     //delete an event method
