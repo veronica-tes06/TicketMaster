@@ -4,6 +4,7 @@
 # PHPUnit code coverage reports
 .scannerwork/
 
+phpunit.xml
 
 # PHPUnit cache
 .phpunit.result.cache

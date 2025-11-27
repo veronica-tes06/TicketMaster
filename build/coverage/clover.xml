@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1763743934">
-  <project timestamp="1763743934">
+<coverage generated="1764243798">
+  <project timestamp="1764243798">
     <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\AuthController.php">
       <class name="App\Controllers\AuthController" namespace="global">
-        <metrics complexity="14" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="40" coveredstatements="0" elements="43" coveredelements="0"/>
+        <metrics complexity="18" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="44" coveredstatements="27" elements="47" coveredelements="27"/>
       </class>
-      <line num="22" type="stmt" count="1"/>
-      <line num="23" type="stmt" count="1"/>
-      <line num="26" type="method" name="validateCredentials" visibility="private" complexity="6" crap="42" count="0"/>
-      <line num="27" type="stmt" count="0"/>
-      <line num="30" type="stmt" count="0"/>
-      <line num="31" type="stmt" count="0"/>
-      <line num="35" type="stmt" count="0"/>
+      <line num="24" type="method" name="validateCredentials" visibility="private" complexity="6" crap="6.04" count="8"/>
+      <line num="25" type="stmt" count="8"/>
+      <line num="28" type="stmt" count="8"/>
+      <line num="29" type="stmt" count="8"/>
+      <line num="33" type="stmt" count="8"/>
+      <line num="34" type="stmt" count="2"/>
+      <line num="35" type="stmt" count="6"/>
       <line num="36" type="stmt" count="0"/>
-      <line num="37" type="stmt" count="0"/>
-      <line num="38" type="stmt" count="0"/>
-      <line num="42" type="stmt" count="0"/>
-      <line num="43" type="stmt" count="0"/>
-      <line num="45" type="stmt" count="0"/>
-      <line num="49" type="method" name="login" visibility="public" complexity="4" crap="20" count="0"/>
-      <line num="51" type="stmt" count="0"/>
-      <line num="52" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="6"/>
+      <line num="41" type="stmt" count="2"/>
+      <line num="43" type="stmt" count="8"/>
+      <line num="47" type="method" name="login" visibility="public" complexity="6" crap="18.66" count="4"/>
+      <line num="49" type="stmt" count="4"/>
+      <line num="50" type="stmt" count="4"/>
+      <line num="53" type="stmt" count="2"/>
+      <line num="54" type="stmt" count="2"/>
       <line num="55" type="stmt" count="0"/>
       <line num="56" type="stmt" count="0"/>
       <line num="57" type="stmt" count="0"/>
@@ -28,55 +28,56 @@
       <line num="59" type="stmt" count="0"/>
       <line num="60" type="stmt" count="0"/>
       <line num="61" type="stmt" count="0"/>
-      <line num="62" type="stmt" count="0"/>
-      <line num="63" type="stmt" count="0"/>
+      <line num="67" type="stmt" count="0"/>
       <line num="68" type="stmt" count="0"/>
       <line num="69" type="stmt" count="0"/>
       <line num="70" type="stmt" count="0"/>
-      <line num="78" type="stmt" count="0"/>
-      <line num="83" type="method" name="register" visibility="public" complexity="4" crap="20" count="0"/>
-      <line num="84" type="stmt" count="0"/>
-      <line num="85" type="stmt" count="0"/>
-      <line num="87" type="stmt" count="0"/>
-      <line num="89" type="stmt" count="0"/>
-      <line num="90" type="stmt" count="0"/>
-      <line num="93" type="stmt" count="0"/>
-      <line num="94" type="stmt" count="0"/>
-      <line num="95" type="stmt" count="0"/>
-      <line num="96" type="stmt" count="0"/>
-      <line num="97" type="stmt" count="0"/>
-      <line num="98" type="stmt" count="0"/>
+      <line num="72" type="stmt" count="0"/>
+      <line num="76" type="stmt" count="2"/>
+      <line num="81" type="method" name="register" visibility="public" complexity="6" crap="6.47" count="4"/>
+      <line num="82" type="stmt" count="4"/>
+      <line num="83" type="stmt" count="4"/>
+      <line num="85" type="stmt" count="2"/>
+      <line num="87" type="stmt" count="2"/>
+      <line num="88" type="stmt" count="2"/>
+      <line num="91" type="stmt" count="2"/>
+      <line num="92" type="stmt" count="2"/>
+      <line num="93" type="stmt" count="2"/>
+      <line num="94" type="stmt" count="2"/>
+      <line num="95" type="stmt" count="2"/>
+      <line num="96" type="stmt" count="2"/>
+      <line num="102" type="stmt" count="2"/>
       <line num="103" type="stmt" count="0"/>
       <line num="104" type="stmt" count="0"/>
       <line num="105" type="stmt" count="0"/>
-      <line num="109" type="stmt" count="0"/>
-      <metrics loc="112" ncloc="75" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="42" coveredstatements="2" elements="45" coveredelements="2"/>
+      <line num="107" type="stmt" count="2"/>
+      <line num="110" type="stmt" count="0"/>
+      <metrics loc="113" ncloc="77" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="44" coveredstatements="27" elements="47" coveredelements="27"/>
     </file>
     <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php">
       <class name="App\Controllers\EventController" namespace="global">
-        <metrics complexity="17" methods="5" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="38" coveredstatements="0" elements="43" coveredelements="0"/>
+        <metrics complexity="17" methods="5" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="39" coveredstatements="21" elements="44" coveredelements="22"/>
       </class>
-      <line num="21" type="stmt" count="1"/>
       <line num="22" type="stmt" count="1"/>
-      <line num="27" type="method" name="validateEvent" visibility="private" complexity="11" crap="132" count="0"/>
-      <line num="30" type="stmt" count="0"/>
-      <line num="31" type="stmt" count="0"/>
-      <line num="35" type="stmt" count="0"/>
-      <line num="36" type="stmt" count="0"/>
-      <line num="40" type="stmt" count="0"/>
-      <line num="41" type="stmt" count="0"/>
-      <line num="45" type="stmt" count="0"/>
-      <line num="46" type="stmt" count="0"/>
-      <line num="50" type="stmt" count="0"/>
-      <line num="51" type="stmt" count="0"/>
-      <line num="52" type="stmt" count="0"/>
-      <line num="56" type="stmt" count="0"/>
-      <line num="57" type="stmt" count="0"/>
-      <line num="61" type="stmt" count="0"/>
-      <line num="62" type="stmt" count="0"/>
-      <line num="66" type="stmt" count="0"/>
-      <line num="67" type="stmt" count="0"/>
-      <line num="70" type="stmt" count="0"/>
+      <line num="27" type="method" name="validateEvent" visibility="private" complexity="11" crap="11" count="11"/>
+      <line num="30" type="stmt" count="11"/>
+      <line num="31" type="stmt" count="3"/>
+      <line num="35" type="stmt" count="8"/>
+      <line num="36" type="stmt" count="1"/>
+      <line num="40" type="stmt" count="7"/>
+      <line num="41" type="stmt" count="1"/>
+      <line num="45" type="stmt" count="6"/>
+      <line num="46" type="stmt" count="1"/>
+      <line num="50" type="stmt" count="5"/>
+      <line num="51" type="stmt" count="5"/>
+      <line num="52" type="stmt" count="1"/>
+      <line num="56" type="stmt" count="4"/>
+      <line num="57" type="stmt" count="1"/>
+      <line num="61" type="stmt" count="3"/>
+      <line num="62" type="stmt" count="1"/>
+      <line num="66" type="stmt" count="2"/>
+      <line num="67" type="stmt" count="1"/>
+      <line num="70" type="stmt" count="1"/>
       <line num="74" type="method" name="showEventsPage" visibility="public" complexity="2" crap="6" count="0"/>
       <line num="76" type="stmt" count="0"/>
       <line num="77" type="stmt" count="0"/>
@@ -84,28 +85,29 @@
       <line num="80" type="stmt" count="0"/>
       <line num="82" type="stmt" count="0"/>
       <line num="84" type="stmt" count="0"/>
-      <line num="88" type="method" name="createEvent" visibility="public" complexity="2" crap="6" count="0"/>
-      <line num="91" type="stmt" count="0"/>
-      <line num="92" type="stmt" count="0"/>
-      <line num="95" type="stmt" count="0"/>
-      <line num="96" type="stmt" count="0"/>
+      <line num="88" type="method" name="createEvent" visibility="public" complexity="2" crap="2.75" count="2"/>
+      <line num="91" type="stmt" count="2"/>
+      <line num="92" type="stmt" count="2"/>
+      <line num="93" type="stmt" count="2"/>
+      <line num="97" type="stmt" count="0"/>
       <line num="98" type="stmt" count="0"/>
-      <line num="99" type="stmt" count="0"/>
-      <line num="103" type="method" name="showSingleEvent" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="105" type="stmt" count="0"/>
-      <line num="106" type="stmt" count="0"/>
+      <line num="100" type="stmt" count="0"/>
+      <line num="101" type="stmt" count="0"/>
+      <line num="105" type="method" name="showSingleEvent" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="107" type="stmt" count="0"/>
       <line num="108" type="stmt" count="0"/>
-      <line num="109" type="stmt" count="0"/>
-      <line num="113" type="method" name="deleteEvent" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="115" type="stmt" count="0"/>
-      <line num="116" type="stmt" count="0"/>
+      <line num="110" type="stmt" count="0"/>
+      <line num="111" type="stmt" count="0"/>
+      <line num="115" type="method" name="deleteEvent" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="117" type="stmt" count="0"/>
       <line num="118" type="stmt" count="0"/>
-      <line num="119" type="stmt" count="0"/>
-      <metrics loc="122" ncloc="94" classes="1" methods="5" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="40" coveredstatements="2" elements="45" coveredelements="2"/>
+      <line num="120" type="stmt" count="0"/>
+      <line num="121" type="stmt" count="0"/>
+      <metrics loc="124" ncloc="94" classes="1" methods="5" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="40" coveredstatements="22" elements="45" coveredelements="23"/>
     </file>
     <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\Event.php">
       <class name="App\Models\Event" namespace="global">
-        <metrics complexity="16" methods="14" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="58" coveredstatements="36" elements="72" coveredelements="47"/>
+        <metrics complexity="16" methods="14" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="58" coveredstatements="40" elements="72" coveredelements="52"/>
       </class>
       <line num="17" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="5"/>
       <line num="26" type="stmt" count="5"/>
@@ -154,11 +156,11 @@
       <line num="94" type="stmt" count="0"/>
       <line num="95" type="stmt" count="0"/>
       <line num="96" type="stmt" count="0"/>
-      <line num="100" type="method" name="findByName" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="102" type="stmt" count="0"/>
-      <line num="104" type="stmt" count="0"/>
-      <line num="105" type="stmt" count="0"/>
-      <line num="106" type="stmt" count="0"/>
+      <line num="100" type="method" name="findByName" visibility="public" complexity="1" crap="1" count="8"/>
+      <line num="102" type="stmt" count="8"/>
+      <line num="104" type="stmt" count="8"/>
+      <line num="105" type="stmt" count="8"/>
+      <line num="106" type="stmt" count="8"/>
       <line num="110" type="method" name="delete" visibility="public" complexity="1" crap="1" count="1"/>
       <line num="112" type="stmt" count="1"/>
       <line num="114" type="stmt" count="1"/>
@@ -179,257 +181,68 @@
       <line num="151" type="stmt" count="1"/>
       <line num="154" type="method" name="getMinTickets" visibility="public" complexity="1" crap="1" count="1"/>
       <line num="156" type="stmt" count="1"/>
-      <metrics loc="159" ncloc="153" classes="1" methods="14" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="58" coveredstatements="36" elements="72" coveredelements="47"/>
+      <metrics loc="159" ncloc="153" classes="1" methods="14" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="58" coveredstatements="40" elements="72" coveredelements="52"/>
     </file>
     <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\User.php">
       <class name="App\Models\User" namespace="global">
         <metrics complexity="14" methods="10" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="28" elements="41" coveredelements="35"/>
       </class>
-      <line num="15" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="5"/>
-      <line num="16" type="stmt" count="5"/>
-      <line num="17" type="stmt" count="5"/>
-      <line num="21" type="method" name="getId" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="22" type="method" name="getEmail" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="15" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
+      <line num="16" type="stmt" count="9"/>
+      <line num="17" type="stmt" count="9"/>
+      <line num="21" type="method" name="getId" visibility="public" complexity="1" crap="1" count="4"/>
+      <line num="22" type="method" name="getEmail" visibility="public" complexity="1" crap="1" count="3"/>
       <line num="23" type="method" name="getPassword" visibility="public" complexity="1" crap="1" count="1"/>
       <line num="24" type="method" name="isAdmin" visibility="public" complexity="1" crap="1" count="2"/>
       <line num="25" type="method" name="getBookings" visibility="public" complexity="1" crap="1" count="1"/>
       <line num="27" type="method" name="setEmail" visibility="public" complexity="1" crap="2" count="0"/>
       <line num="28" type="method" name="setPassword" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="31" type="method" name="login" visibility="public" complexity="3" crap="3" count="2"/>
-      <line num="32" type="stmt" count="2"/>
-      <line num="34" type="stmt" count="2"/>
-      <line num="35" type="stmt" count="2"/>
-      <line num="36" type="stmt" count="2"/>
-      <line num="39" type="stmt" count="2"/>
+      <line num="31" type="method" name="login" visibility="public" complexity="3" crap="3" count="4"/>
+      <line num="32" type="stmt" count="4"/>
+      <line num="34" type="stmt" count="4"/>
+      <line num="35" type="stmt" count="4"/>
+      <line num="36" type="stmt" count="4"/>
+      <line num="39" type="stmt" count="4"/>
       <line num="40" type="stmt" count="1"/>
       <line num="41" type="stmt" count="1"/>
       <line num="43" type="stmt" count="1"/>
       <line num="44" type="stmt" count="1"/>
       <line num="45" type="stmt" count="1"/>
       <line num="46" type="stmt" count="1"/>
-      <line num="48" type="stmt" count="1"/>
-      <line num="52" type="method" name="register" visibility="public" complexity="3" crap="3.01" count="2"/>
-      <line num="53" type="stmt" count="2"/>
-      <line num="56" type="stmt" count="2"/>
-      <line num="57" type="stmt" count="2"/>
-      <line num="58" type="stmt" count="2"/>
-      <line num="61" type="stmt" count="1"/>
-      <line num="62" type="stmt" count="1"/>
-      <line num="63" type="stmt" count="1"/>
-      <line num="64" type="stmt" count="1"/>
-      <line num="65" type="stmt" count="1"/>
+      <line num="48" type="stmt" count="3"/>
+      <line num="52" type="method" name="register" visibility="public" complexity="3" crap="3.01" count="4"/>
+      <line num="53" type="stmt" count="4"/>
+      <line num="56" type="stmt" count="4"/>
+      <line num="57" type="stmt" count="4"/>
+      <line num="58" type="stmt" count="4"/>
+      <line num="61" type="stmt" count="3"/>
+      <line num="62" type="stmt" count="3"/>
+      <line num="63" type="stmt" count="3"/>
+      <line num="64" type="stmt" count="3"/>
+      <line num="65" type="stmt" count="3"/>
       <line num="67" type="stmt" count="0"/>
       <metrics loc="70" ncloc="61" classes="1" methods="10" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="28" elements="41" coveredelements="35"/>
     </file>
     <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\config\config.php">
-      <line num="4" type="stmt" count="1"/>
-      <line num="7" type="stmt" count="1"/>
-      <line num="10" type="stmt" count="1"/>
-      <line num="13" type="stmt" count="1"/>
-      <metrics loc="14" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="4" coveredelements="4"/>
+      <line num="4" type="stmt" count="0"/>
+      <line num="7" type="stmt" count="0"/>
+      <line num="10" type="stmt" count="0"/>
+      <line num="13" type="stmt" count="0"/>
+      <metrics loc="14" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="0" elements="4" coveredelements="0"/>
     </file>
     <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\config\connect.php">
-      <line num="3" type="stmt" count="8"/>
-      <line num="4" type="stmt" count="8"/>
-      <line num="5" type="stmt" count="8"/>
-      <line num="6" type="stmt" count="8"/>
-      <line num="7" type="stmt" count="8"/>
-      <line num="10" type="stmt" count="8"/>
-      <line num="11" type="stmt" count="8"/>
-      <line num="12" type="stmt" count="8"/>
+      <line num="3" type="stmt" count="20"/>
+      <line num="4" type="stmt" count="20"/>
+      <line num="5" type="stmt" count="20"/>
+      <line num="6" type="stmt" count="20"/>
+      <line num="7" type="stmt" count="20"/>
+      <line num="10" type="stmt" count="20"/>
+      <line num="11" type="stmt" count="20"/>
+      <line num="12" type="stmt" count="20"/>
       <line num="13" type="stmt" count="0"/>
       <line num="14" type="stmt" count="0"/>
       <metrics loc="17" ncloc="16" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="8" elements="10" coveredelements="8"/>
     </file>
-    <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\views\Event\adminEvents.php">
-      <line num="3" type="stmt" count="0"/>
-      <line num="4" type="stmt" count="0"/>
-      <line num="7" type="stmt" count="0"/>
-      <line num="8" type="stmt" count="0"/>
-      <line num="9" type="stmt" count="0"/>
-      <line num="14" type="stmt" count="0"/>
-      <line num="15" type="stmt" count="0"/>
-      <line num="17" type="stmt" count="0"/>
-      <line num="18" type="stmt" count="0"/>
-      <line num="19" type="stmt" count="0"/>
-      <line num="20" type="stmt" count="0"/>
-      <line num="21" type="stmt" count="0"/>
-      <line num="22" type="stmt" count="0"/>
-      <line num="24" type="stmt" count="0"/>
-      <line num="26" type="stmt" count="0"/>
-      <line num="42" type="stmt" count="0"/>
-      <line num="43" type="stmt" count="0"/>
-      <line num="44" type="stmt" count="0"/>
-      <line num="45" type="stmt" count="0"/>
-      <line num="46" type="stmt" count="0"/>
-      <line num="47" type="stmt" count="0"/>
-      <line num="48" type="stmt" count="0"/>
-      <line num="49" type="stmt" count="0"/>
-      <line num="50" type="stmt" count="0"/>
-      <line num="54" type="stmt" count="0"/>
-      <line num="55" type="stmt" count="0"/>
-      <line num="62" type="stmt" count="0"/>
-      <line num="63" type="stmt" count="0"/>
-      <line num="64" type="stmt" count="0"/>
-      <line num="65" type="stmt" count="0"/>
-      <line num="66" type="stmt" count="0"/>
-      <metrics loc="67" ncloc="64" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="0" elements="31" coveredelements="0"/>
-    </file>
-    <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\views\Event\createEvent.php">
-      <line num="2" type="stmt" count="0"/>
-      <line num="3" type="stmt" count="0"/>
-      <line num="4" type="stmt" count="0"/>
-      <line num="6" type="stmt" count="0"/>
-      <line num="7" type="stmt" count="0"/>
-      <line num="8" type="stmt" count="0"/>
-      <line num="11" type="stmt" count="0"/>
-      <line num="14" type="stmt" count="0"/>
-      <line num="15" type="stmt" count="0"/>
-      <line num="16" type="stmt" count="0"/>
-      <line num="17" type="stmt" count="0"/>
-      <line num="18" type="stmt" count="0"/>
-      <line num="19" type="stmt" count="0"/>
-      <line num="20" type="stmt" count="0"/>
-      <line num="23" type="stmt" count="0"/>
-      <line num="24" type="stmt" count="0"/>
-      <line num="27" type="stmt" count="0"/>
-      <line num="31" type="stmt" count="0"/>
-      <line num="32" type="stmt" count="0"/>
-      <line num="33" type="stmt" count="0"/>
-      <line num="34" type="stmt" count="0"/>
-      <line num="35" type="stmt" count="0"/>
-      <line num="36" type="stmt" count="0"/>
-      <line num="38" type="stmt" count="0"/>
-      <line num="40" type="stmt" count="0"/>
-      <line num="41" type="stmt" count="0"/>
-      <line num="44" type="stmt" count="0"/>
-      <line num="46" type="stmt" count="0"/>
-      <line num="47" type="stmt" count="0"/>
-      <line num="49" type="stmt" count="0"/>
-      <line num="50" type="stmt" count="0"/>
-      <line num="52" type="stmt" count="0"/>
-      <line num="53" type="stmt" count="0"/>
-      <line num="55" type="stmt" count="0"/>
-      <line num="56" type="stmt" count="0"/>
-      <line num="58" type="stmt" count="0"/>
-      <line num="59" type="stmt" count="0"/>
-      <line num="61" type="stmt" count="0"/>
-      <line num="62" type="stmt" count="0"/>
-      <line num="64" type="stmt" count="0"/>
-      <line num="66" type="stmt" count="0"/>
-      <line num="68" type="stmt" count="0"/>
-      <line num="69" type="stmt" count="0"/>
-      <metrics loc="70" ncloc="67" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="43" coveredstatements="0" elements="43" coveredelements="0"/>
-    </file>
-    <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\views\Event\events.php">
-      <line num="3" type="stmt" count="0"/>
-      <line num="4" type="stmt" count="0"/>
-      <line num="7" type="stmt" count="0"/>
-      <line num="8" type="stmt" count="0"/>
-      <line num="9" type="stmt" count="0"/>
-      <line num="14" type="stmt" count="0"/>
-      <line num="15" type="stmt" count="0"/>
-      <line num="18" type="stmt" count="0"/>
-      <line num="19" type="stmt" count="0"/>
-      <line num="20" type="stmt" count="0"/>
-      <line num="21" type="stmt" count="0"/>
-      <line num="23" type="stmt" count="0"/>
-      <line num="24" type="stmt" count="0"/>
-      <line num="25" type="stmt" count="0"/>
-      <line num="26" type="stmt" count="0"/>
-      <line num="27" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="0"/>
-      <line num="30" type="stmt" count="0"/>
-      <line num="31" type="stmt" count="0"/>
-      <line num="42" type="stmt" count="0"/>
-      <line num="43" type="stmt" count="0"/>
-      <line num="44" type="stmt" count="0"/>
-      <line num="45" type="stmt" count="0"/>
-      <line num="46" type="stmt" count="0"/>
-      <line num="47" type="stmt" count="0"/>
-      <line num="52" type="stmt" count="0"/>
-      <line num="58" type="stmt" count="0"/>
-      <line num="60" type="stmt" count="0"/>
-      <line num="62" type="stmt" count="0"/>
-      <line num="63" type="stmt" count="0"/>
-      <line num="65" type="stmt" count="0"/>
-      <line num="66" type="stmt" count="0"/>
-      <metrics loc="67" ncloc="62" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="32" coveredstatements="0" elements="32" coveredelements="0"/>
-    </file>
-    <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\views\Event\myEvents.php">
-      <metrics loc="3" ncloc="2" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
-    </file>
-    <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\views\User\login.php">
-      <line num="2" type="stmt" count="0"/>
-      <line num="3" type="stmt" count="0"/>
-      <line num="4" type="stmt" count="0"/>
-      <line num="6" type="stmt" count="0"/>
-      <line num="9" type="stmt" count="0"/>
-      <line num="10" type="stmt" count="0"/>
-      <line num="11" type="stmt" count="0"/>
-      <line num="15" type="stmt" count="0"/>
-      <line num="16" type="stmt" count="0"/>
-      <line num="19" type="stmt" count="0"/>
-      <line num="22" type="stmt" count="0"/>
-      <line num="23" type="stmt" count="0"/>
-      <line num="24" type="stmt" count="0"/>
-      <line num="25" type="stmt" count="0"/>
-      <line num="26" type="stmt" count="0"/>
-      <line num="27" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="0"/>
-      <line num="29" type="stmt" count="0"/>
-      <line num="30" type="stmt" count="0"/>
-      <line num="32" type="stmt" count="0"/>
-      <line num="33" type="stmt" count="0"/>
-      <line num="34" type="stmt" count="0"/>
-      <line num="35" type="stmt" count="0"/>
-      <line num="36" type="stmt" count="0"/>
-      <line num="37" type="stmt" count="0"/>
-      <line num="38" type="stmt" count="0"/>
-      <line num="39" type="stmt" count="0"/>
-      <metrics loc="40" ncloc="36" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="27" coveredelements="0"/>
-    </file>
-    <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\views\User\logout.php">
-      <line num="2" type="stmt" count="0"/>
-      <line num="3" type="stmt" count="0"/>
-      <line num="4" type="stmt" count="0"/>
-      <line num="5" type="stmt" count="0"/>
-      <line num="6" type="stmt" count="0"/>
-      <metrics loc="6" ncloc="6" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="5" coveredelements="0"/>
-    </file>
-    <file name="C:\xampp\htdocs\projectEngineering\TicketMaster\app\views\User\register.php">
-      <line num="2" type="stmt" count="0"/>
-      <line num="3" type="stmt" count="0"/>
-      <line num="4" type="stmt" count="0"/>
-      <line num="5" type="stmt" count="0"/>
-      <line num="7" type="stmt" count="0"/>
-      <line num="8" type="stmt" count="0"/>
-      <line num="10" type="stmt" count="0"/>
-      <line num="13" type="stmt" count="0"/>
-      <line num="14" type="stmt" count="0"/>
-      <line num="15" type="stmt" count="0"/>
-      <line num="19" type="stmt" count="0"/>
-      <line num="20" type="stmt" count="0"/>
-      <line num="23" type="stmt" count="0"/>
-      <line num="26" type="stmt" count="0"/>
-      <line num="27" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="0"/>
-      <line num="29" type="stmt" count="0"/>
-      <line num="30" type="stmt" count="0"/>
-      <line num="31" type="stmt" count="0"/>
-      <line num="32" type="stmt" count="0"/>
-      <line num="34" type="stmt" count="0"/>
-      <line num="35" type="stmt" count="0"/>
-      <line num="38" type="stmt" count="0"/>
-      <line num="39" type="stmt" count="0"/>
-      <line num="40" type="stmt" count="0"/>
-      <line num="41" type="stmt" count="0"/>
-      <line num="42" type="stmt" count="0"/>
-      <line num="44" type="stmt" count="0"/>
-      <line num="45" type="stmt" count="0"/>
-      <line num="46" type="stmt" count="0"/>
-      <metrics loc="46" ncloc="42" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="0" elements="30" coveredelements="0"/>
-    </file>
-    <metrics files="13" loc="793" ncloc="688" classes="4" methods="32" coveredmethods="18" conditionals="0" coveredconditionals="0" statements="353" coveredstatements="80" elements="385" coveredelements="98"/>
+    <metrics files="6" loc="497" ncloc="411" classes="4" methods="32" coveredmethods="20" conditionals="0" coveredconditionals="0" statements="187" coveredstatements="125" elements="219" coveredelements="145"/>
   </project>
 </coverage>

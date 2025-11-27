@@ -18,9 +18,7 @@
 namespace App\Controllers;
 
 use App\Models\User;
-
-require_once __DIR__ . '/../models/User.php';
-require_once __DIR__ . '/../controllers/EventController.php';
+use App\Controllers\EventController;
 
 class AuthController {
     private function validateCredentials(string $email, string $password): array {
@@ -65,13 +63,13 @@ class AuthController {
             //redirect to appropriate page based on admin or not (MVC now as of 13-11-2025)
             //SUPER IMPRTANT MAKE NEWTICKETMASTERREPOSITORY MATCH YOUR REPO FOLDER NAME
             //------------------------------------------------------------
-            $eventController = new EventController();
-            $eventController->showEventsPage($user->isAdmin());
-            exit;
-            //------------------------------------------------------------
-            //old redirect method below before MVC was added
-            //return null to show it worked (login returns string if failure, nothing (here) if it works)
-            //return null;
+            // For testing purposes, allow bypassing the redirect
+            if (!defined('TESTING_MODE') || !TESTING_MODE) {
+                $eventController = new EventController();
+                $eventController->showEventsPage($user->isAdmin());
+                exit;
+            }
+            return null; // Success - no error message
         }
 
         //only reached if login failed
@@ -100,10 +98,13 @@ class AuthController {
             //redirect to appropriate page based on admin or not
             //SUPER IMPRTANT MAKE NEWTICKETMASTERREPOSITORY MATCH YOUR REPO FOLDER NAME (not anymore hopefully)
             //------------------------------------------------------------
-            $eventController = new EventController();
-            $eventController->showEventsPage($user->isAdmin());
-            exit;
-            //------------------------------------------------------------
+            // For testing purposes, allow bypassing the redirect
+            if (!defined('TESTING_MODE') || !TESTING_MODE) {
+                $eventController = new EventController();
+                $eventController->showEventsPage($user->isAdmin());
+                exit;
+            }
+            return null; // Success - no error message
         }
         //assumption kindof 
         return 'Email already associated with an account.';
