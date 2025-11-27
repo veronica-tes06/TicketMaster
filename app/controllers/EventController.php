@@ -17,9 +17,9 @@
 namespace App\Controllers;
 
 use App\Models\Event;
+use DateTime; // import global DateTime to avoid namespace resolution error
 
 require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../models/Event.php';
 
 class EventController
 {
@@ -74,7 +74,7 @@ class EventController
     public function showEventsPage($isAdmin)
     {
         $eventModel = new Event();
-        $events = $eventModel->all($isAdmin);
+        $eventModel->all($isAdmin); // result not directly used; method likely triggers internal state/views
 
         if ($isAdmin) {
             require EVENT_VIEW . '/adminEvents.php';
@@ -89,7 +89,9 @@ class EventController
     {
         //validation
         $error = $this->validateEvent($name, $location, $date, $time, $performer, $tickets);
-        if ($error) return $error;
+        if ($error) {
+            return $error;
+        }
 
         //create model and save
         $event = new Event($name, $location, $date, $time, $performer, $tickets);

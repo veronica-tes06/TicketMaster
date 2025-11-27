@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="C:\xampp\htdocs\projectEngineering\TicketMaster/tests/bootstrap.php" colors="false" stopOnFailure="false" executionOrder="random" resolveDependencies="true" failOnRisky="true" failOnWarning="true" stopOnDefect="true" cacheResult="false" stderr="false">
+  <php>
+    <env name="DB_HOST" value="127.0.0.1"/>
+    <env name="DB_PORT" value="3307"/>
+    <env name="DB_NAME" value="ticketmaster_test"/>
+    <env name="DB_USER" value="root"/>
+    <env name="DB_PASS" value=""/>
+  </php>
+  <testsuites>
+    <testsuite name="TicketMaster Test Suite">
+      <directory>C:\xampp\htdocs\projectEngineering\TicketMaster/tests</directory>
+    </testsuite>
+  </testsuites>
+  <coverage>
+    <include>
+      <directory suffix=".php">C:\xampp\htdocs\projectEngineering\TicketMaster/app</directory>
+    </include>
+    <exclude>
+      <directory>C:\xampp\htdocs\projectEngineering\TicketMaster/app/views</directory>
+    </exclude>
+  </coverage>
+</phpunit>
