@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="vendor/autoload.php" colors="true" stopOnFailure="false" executionOrder="default">
+<phpunit bootstrap="tests/bootstrap.php" colors="true" stopOnFailure="false" executionOrder="random" resolveDependencies="true">
 
-    <!-- <php>
+    <php>
         <env name="DB_HOST" value="127.0.0.1"/>
         <env name="DB_PORT" value="3307"/>
         <env name="DB_NAME" value="ticketmaster_test"/>
         <env name="DB_USER" value="root"/>
         <env name="DB_PASS" value=""/>
-    </php> -->
-
-    <php>
-        <env name="DB_HOST" value="127.0.0.1"/>
-        <env name="DB_PORT" value="3306"/>
-        <env name="DB_NAME" value="ticketmaster_test"/>
-        <env name="DB_USER" value="root"/>
-        <env name="DB_PASS" value="admin"/>
-    </php> 
+    </php>
 
     <testsuites>
         <testsuite name="TicketMaster Test Suite">
@@ -23,14 +15,15 @@
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist>
+    <coverage>
+        <report>
+            <clover outputFile="build/coverage/clover.xml"/>
+        </report>
+        <include>
             <directory suffix=".php">app</directory>
-        </whitelist>
-    </filter>
-
-
-    <logging>
-        <log type="coverage-clover" target="build/coverage/clover.xml"/>
-    </logging>
+        </include>
+        <exclude>
+            <directory>app/views</directory>
+        </exclude>
+    </coverage>
 </phpunit>

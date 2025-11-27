@@ -6,203 +6,121 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 class EventControllerTest extends TestCase
 {
-    private $controller;
+    private const VALID_PLACE = 'Valid Place';
+    private const VALID_TIME = '12:30';
+    private const VALID_DATE_FIXED = '25/12/25';
+    private const DATE_FMT = 'd/m/y';
+    private const PLUS_THREE_DAYS = '+3 days';
 
-    protected function setUp(): void
+    private function invokeValidate($name, $location, $date, $time, $performer, $tickets)
     {
-        $this->controller = $this->createMock(EventController::class);
+        $controller = new EventController();
+        $ref = new ReflectionClass(EventController::class);
+        $method = $ref->getMethod('validateEvent');
+        $method->setAccessible(true);
+        return $method->invoke($controller, $name, $location, $date, $time, $performer, $tickets);
     }
 
-    // Test 1: Create event with valid data
+    public function testValidateInvalidNamePattern()
+    {
+        $msg = $this->invokeValidate('Short', self::VALID_PLACE, self::VALID_DATE_FIXED, self::VALID_TIME, 'Singer', 100);
+        $this->assertStringContainsString('Event name must be', $msg);
+    }
+
+    public function testValidateDuplicateName()
+    {
+        // Ensure a duplicate row exists in real test DB to trigger duplicate name branch
+        $host = getenv('DB_HOST') ?: '127.0.0.1';
+        $port = getenv('DB_PORT') ?: '3307';
+        $dbName = getenv('DB_NAME') ?: 'ticketmaster_test';
+        $user = getenv('DB_USER') ?: 'root';
+        $pass = getenv('DB_PASS') ?: '';
+        try {
+            $pdoReal = new PDO("mysql:host=$host;port=$port;dbname=$dbName", $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+            $pdoReal->exec("INSERT INTO events (eventName, eventLocation, eventDate, eventTime, performer, eventTicketMaxAMT, eventTicketMinAMT) VALUES ('DupEventXYZ','Loc','01-01-2030','12:30','Singer',100,1)");
+        } catch (\Throwable $e) {
+            $this->markTestSkipped('DB unavailable for duplicate name test: ' . $e->getMessage());
+        }
+        $msg = $this->invokeValidate('DupEventXYZ', self::VALID_PLACE, self::VALID_DATE_FIXED, self::VALID_TIME, 'Singer', 100);
+        $this->assertStringContainsString('already exists', $msg);
+        // Cleanup inserted row so other suites or future tests are unaffected
+        try {
+            $host = getenv('DB_HOST') ?: '127.0.0.1';
+            $port = getenv('DB_PORT') ?: '3307';
+            $dbName = getenv('DB_NAME') ?: 'ticketmaster_test';
+            $user = getenv('DB_USER') ?: 'root';
+            $pass = getenv('DB_PASS') ?: '';
+            $pdoCleanup = new PDO("mysql:host=$host;port=$port;dbname=$dbName", $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+            $pdoCleanup->prepare("DELETE FROM events WHERE eventName = ?")->execute(['DupEventXYZ']);
+        } catch (\Throwable $e) {
+            // Silent: cleanup failure should not fail test
+        }
+    }
+
+    public function testValidateInvalidLocation()
+    {
+        $msg = $this->invokeValidate('AlphaBeta', 'x', self::VALID_DATE_FIXED, self::VALID_TIME, 'Singer', 100);
+        $this->assertStringContainsString('Location must be', $msg);
+    }
+
+    public function testValidateInvalidDateFormat()
+    {
+        $msg = $this->invokeValidate('BetaGamma', self::VALID_PLACE, '2025-12-25', self::VALID_TIME, 'Singer', 100);
+        $this->assertStringContainsString('Date must be', $msg);
+    }
+
+    public function testValidateDateTooSoon()
+    {
+        $today = date(self::DATE_FMT);
+        $msg = $this->invokeValidate('GammaDelta', self::VALID_PLACE, $today, self::VALID_TIME, 'Singer', 100);
+        $this->assertStringContainsString('at least tomorrow', $msg);
+    }
+
+    public function testValidateInvalidTime()
+    {
+        $msg = $this->invokeValidate('DeltaEpsil', self::VALID_PLACE, date(self::DATE_FMT, strtotime(self::PLUS_THREE_DAYS)), '99:99', 'Singer', 100);
+        $this->assertStringContainsString('Time must be', $msg);
+    }
+
+    public function testValidateInvalidPerformer()
+    {
+        $msg = $this->invokeValidate('EpsilonTh', self::VALID_PLACE, date(self::DATE_FMT, strtotime(self::PLUS_THREE_DAYS)), self::VALID_TIME, 'Ab', 100);
+        $this->assertStringContainsString('Performer must be', $msg);
+    }
+
+    public function testValidateInvalidTickets()
+    {
+        $msg = $this->invokeValidate('ThetaIota', self::VALID_PLACE, date(self::DATE_FMT, strtotime(self::PLUS_THREE_DAYS)), self::VALID_TIME, 'Singer', 5);
+        $this->assertStringContainsString('Tickets must be', $msg);
+    }
+
+    public function testValidateValidEvent()
+    {
+        $future = date(self::DATE_FMT, strtotime('+5 days'));
+        $msg = $this->invokeValidate('IotaKappa', self::VALID_PLACE, $future, self::VALID_TIME, 'Singer Name', 300);
+        $this->assertNull($msg);
+    }
+
+    public function testCreateEventValidationError()
+    {
+        $controller = new EventController();
+        $error = $controller->createEvent('Short', 'PlaceName', self::VALID_DATE_FIXED, self::VALID_TIME, 'Singer', 100);
+        $this->assertStringContainsString('Event name must be', $error);
+    }
+
     public function testCreateEventSuccess()
     {
-        $name = 'Concert Night';
-        $location = 'Dublin Hall';
-        $date = '15/12/25';
-        $time = '19:30';
-        $performer = 'The Band';
-        $tickets = 100;
-
-        $this->controller->method('createEvent')
-            ->with($name, $location, $date, $time, $performer, $tickets)
-            ->willReturn(null);
-
-        $result = $this->controller->createEvent($name, $location, $date, $time, $performer, $tickets);
-
+        $future = date(self::DATE_FMT, strtotime('+5 days'));
+        $controller = new EventController();
+        
+        // Create a unique event name - must be 8-25 LETTERS ONLY (no numbers per validation regex)
+        // Use a random suffix of letters to avoid duplicates
+        $suffix = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 8);
+        $uniqueName = 'TestEvnt' . $suffix; // 8 + 8 = 16 chars, all letters
+        
+        $result = $controller->createEvent($uniqueName, 'TestLocation', $future, self::VALID_TIME, 'TestPerformer', 100);
+        
+        // Should return null on success (header redirect happens)
         $this->assertNull($result);
     }
-
-    // Test 2: Create event fails with invalid name format
-    public function testCreateEventInvalidName()
-    {
-        $name = 'Con'; // too short
-        $location = 'Dublin Hall';
-        $date = '15/12/25';
-        $time = '19:30';
-        $performer = 'The Band';
-        $tickets = 100;
-
-        $this->controller->method('createEvent')
-            ->with($name, $location, $date, $time, $performer, $tickets)
-            ->willReturn('Event name must be 8–25 letters only.');
-
-        $result = $this->controller->createEvent($name, $location, $date, $time, $performer, $tickets);
-
-        $this->assertEquals('Event name must be 8–25 letters only.', $result);
-    }
-
-    // Test 3: Create event fails with invalid location
-    public function testCreateEventInvalidLocation()
-    {
-        $name = 'Concert Night';
-        $location = 'Hall'; // too short
-        $date = '15/12/25';
-        $time = '19:30';
-        $performer = 'The Band';
-        $tickets = 100;
-
-        $this->controller->method('createEvent')
-            ->with($name, $location, $date, $time, $performer, $tickets)
-            ->willReturn('Location must be 6–30 letters only.');
-
-        $result = $this->controller->createEvent($name, $location, $date, $time, $performer, $tickets);
-
-        $this->assertEquals('Location must be 6–30 letters only.', $result);
-    }
-
-    // Test 4: Create event fails with invalid date format
-    public function testCreateEventInvalidDateFormat()
-    {
-        $name = 'Concert Night';
-        $location = 'Dublin Hall';
-        $date = '2025-12-15'; // wrong format
-        $time = '19:30';
-        $performer = 'The Band';
-        $tickets = 100;
-
-        $this->controller->method('createEvent')
-            ->with($name, $location, $date, $time, $performer, $tickets)
-            ->willReturn('Date must be DD/MM/YY.');
-
-        $result = $this->controller->createEvent($name, $location, $date, $time, $performer, $tickets);
-
-        $this->assertEquals('Date must be DD/MM/YY.', $result);
-    }
-
-    // Test 5: Create event fails with invalid time format
-    public function testCreateEventInvalidTime()
-    {
-        $name = 'Concert Night';
-        $location = 'Dublin Hall';
-        $date = '15/12/25';
-        $time = '25:30'; // invalid hour
-        $performer = 'The Band';
-        $tickets = 100;
-
-        $this->controller->method('createEvent')
-            ->with($name, $location, $date, $time, $performer, $tickets)
-            ->willReturn('Time must be HH:MM.');
-
-        $result = $this->controller->createEvent($name, $location, $date, $time, $performer, $tickets);
-
-        $this->assertEquals('Time must be HH:MM.', $result);
-    }
-
-    // Test 6: Create event fails with invalid performer
-    public function testCreateEventInvalidPerformer()
-    {
-        $name = 'Concert Night';
-        $location = 'Dublin Hall';
-        $date = '15/12/25';
-        $time = '19:30';
-        $performer = 'AB'; // too short
-        $tickets = 100;
-
-        $this->controller->method('createEvent')
-            ->with($name, $location, $date, $time, $performer, $tickets)
-            ->willReturn('Performer must be 4–15 letters.');
-
-        $result = $this->controller->createEvent($name, $location, $date, $time, $performer, $tickets);
-
-        $this->assertEquals('Performer must be 4–15 letters.', $result);
-    }
-
-    // Test 7: Create event fails with invalid ticket amount
-    public function testCreateEventInvalidTickets()
-    {
-        $name = 'Concert Night';
-        $location = 'Dublin Hall';
-        $date = '15/12/25';
-        $time = '19:30';
-        $performer = 'The Band';
-        $tickets = 20; // too few
-
-        $this->controller->method('createEvent')
-            ->with($name, $location, $date, $time, $performer, $tickets)
-            ->willReturn('Tickets must be 30–1000.');
-
-        $result = $this->controller->createEvent($name, $location, $date, $time, $performer, $tickets);
-
-        $this->assertEquals('Tickets must be 30–1000.', $result);
-    }
-
-    // Test 8: Create event fails with duplicate event name
-    public function testCreateEventDuplicateName()
-    {
-        $name = 'Concert Night'; // already exists
-        $location = 'Dublin Hall';
-        $date = '15/12/25';
-        $time = '19:30';
-        $performer = 'The Band';
-        $tickets = 100;
-
-        $this->controller->method('createEvent')
-            ->with($name, $location, $date, $time, $performer, $tickets)
-            ->willReturn('Event name already exists.');
-
-        $result = $this->controller->createEvent($name, $location, $date, $time, $performer, $tickets);
-
-        $this->assertEquals('Event name already exists.', $result);
-    }
-
-    // Test 9: Show events page for regular user
-    public function testShowEventsPageUser()
-    {
-        $this->controller->method('showEventsPage')
-            ->with(false)
-            ->willReturn(null);
-
-        $result = $this->controller->showEventsPage(false);
-
-        $this->assertNull($result);
-    }
-
-    // Test 10: Show events page for admin
-    public function testShowEventsPageAdmin()
-    {
-        $this->controller->method('showEventsPage')
-            ->with(true)
-            ->willReturn(null);
-
-        $result = $this->controller->showEventsPage(true);
-
-        $this->assertNull($result);
-    }
-
-        // Test 11: TODO - Show single event (to be completed)
-        public function testShowSingleEventTODO()
-        {
-            // TODO: Implement showSingleEvent functionality
-            // This test will be completed when view event feature is implemented
-            $this->markTestIncomplete('showSingleEvent functionality to be implemented');
-        }
-
-        // Test 12: TODO - Delete event (to be completed)
-        public function testDeleteEventTODO()
-        {
-            // TODO: Implement deleteEvent functionality
-            // This test will be completed when delete event feature is implemented
-            $this->markTestIncomplete('deleteEvent functionality to be implemented');
-        }
-    }
-    ?>
+}
