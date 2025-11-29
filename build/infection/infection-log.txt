@@ -4,7 +4,267 @@ Note: Pass `--debug` to log test-framework output.
 Escaped mutants:
 ================
 
-1) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\Event.php:23    [M] DecrementInteger [ID] f874cb2274665645e87dda91dd8dde1e
+1) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\AuthController.php:33    [M] PregMatchRemoveDollar [ID] 458f092c5955f9940c8dab19ac40b2d0
+
+@@ @@
+             $email .= '@gmail.com';
+         }
+         //validate the email format
+-        if (!preg_match('/^[A-Za-z0-9]+@gmail\.com$/', $email)) {
++        if (!preg_match('/^[A-Za-z0-9]+@gmail\.com/', $email)) {
+             $error = 'Email must contain only letters and numbers before @gmail.com.';
+         } elseif (strlen($email) < 1 || strlen($email) > 30) {
+             $error = 'Email must be between 1 and 30 characters (including @gmail.com).';
+
+
+2) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\AuthController.php:35    [M] LessThan [ID] d643efa9963172a7d7334996a41d0862
+
+@@ @@
+         //validate the email format
+         if (!preg_match('/^[A-Za-z0-9]+@gmail\.com$/', $email)) {
+             $error = 'Email must contain only letters and numbers before @gmail.com.';
+-        } elseif (strlen($email) < 1 || strlen($email) > 30) {
++        } elseif (strlen($email) <= 1 || strlen($email) > 30) {
+             $error = 'Email must be between 1 and 30 characters (including @gmail.com).';
+         } elseif (!preg_match('/^[A-Za-z0-9]{8,20}$/', $password)) {
+             $error = 'Password must be 8 to 20 characters long and only contain letters or numbers.';
+
+
+3) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\AuthController.php:35    [M] GreaterThan [ID] 60c3a50f4f6ef2814c47243f1a5afc52
+
+@@ @@
+         //validate the email format
+         if (!preg_match('/^[A-Za-z0-9]+@gmail\.com$/', $email)) {
+             $error = 'Email must contain only letters and numbers before @gmail.com.';
+-        } elseif (strlen($email) < 1 || strlen($email) > 30) {
++        } elseif (strlen($email) < 1 || strlen($email) >= 30) {
+             $error = 'Email must be between 1 and 30 characters (including @gmail.com).';
+         } elseif (!preg_match('/^[A-Za-z0-9]{8,20}$/', $password)) {
+             $error = 'Password must be 8 to 20 characters long and only contain letters or numbers.';
+
+
+4) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\AuthController.php:35    [M] LogicalOr [ID] 28f023ce4a45536ab68806d92e44b3bb
+
+@@ @@
+         //validate the email format
+         if (!preg_match('/^[A-Za-z0-9]+@gmail\.com$/', $email)) {
+             $error = 'Email must contain only letters and numbers before @gmail.com.';
+-        } elseif (strlen($email) < 1 || strlen($email) > 30) {
++        } elseif (strlen($email) < 1 && strlen($email) > 30) {
+             $error = 'Email must be between 1 and 30 characters (including @gmail.com).';
+         } elseif (!preg_match('/^[A-Za-z0-9]{8,20}$/', $password)) {
+             $error = 'Password must be 8 to 20 characters long and only contain letters or numbers.';
+
+
+5) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\AuthController.php:40    [M] PregMatchRemoveCaret [ID] 1a1217862f4896f852f3c212fc1ab669
+
+@@ @@
+             $error = 'Email must contain only letters and numbers before @gmail.com.';
+         } elseif (strlen($email) < 1 || strlen($email) > 30) {
+             $error = 'Email must be between 1 and 30 characters (including @gmail.com).';
+-        } elseif (!preg_match('/^[A-Za-z0-9]{8,20}$/', $password)) {
++        } elseif (!preg_match('/[A-Za-z0-9]{8,20}$/', $password)) {
+             $error = 'Password must be 8 to 20 characters long and only contain letters or numbers.';
+         }
+         return [$email, $error];
+
+
+6) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\AuthController.php:40    [M] PregMatchRemoveDollar [ID] 80c1b70b4e503ecbaee3a5f91a75e5d5
+
+@@ @@
+             $error = 'Email must contain only letters and numbers before @gmail.com.';
+         } elseif (strlen($email) < 1 || strlen($email) > 30) {
+             $error = 'Email must be between 1 and 30 characters (including @gmail.com).';
+-        } elseif (!preg_match('/^[A-Za-z0-9]{8,20}$/', $password)) {
++        } elseif (!preg_match('/^[A-Za-z0-9]{8,20}/', $password)) {
+             $error = 'Password must be 8 to 20 characters long and only contain letters or numbers.';
+         }
+         return [$email, $error];
+
+
+7) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:30    [M] PregMatchRemoveCaret [ID] 102e069232b7c328d7cf4f5a38a691dc
+
+@@ @@
+     private function validateEvent($name, $location, $date, $time, $performer, $tickets)
+     {
+         //name
+-        if (!preg_match('/^[A-Za-z]{8,25}$/', $name)) {
++        if (!preg_match('/[A-Za-z]{8,25}$/', $name)) {
+             return "Event name must be 8–25 letters only.";
+         }
+         //unique name
+
+
+8) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:30    [M] PregMatchRemoveDollar [ID] 8357e9a2e6cd15a9bc2fc23b03d39614
+
+@@ @@
+     private function validateEvent($name, $location, $date, $time, $performer, $tickets)
+     {
+         //name
+-        if (!preg_match('/^[A-Za-z]{8,25}$/', $name)) {
++        if (!preg_match('/^[A-Za-z]{8,25}/', $name)) {
+             return "Event name must be 8–25 letters only.";
+         }
+         //unique name
+
+
+9) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:40    [M] PregMatchRemoveCaret [ID] 1cd5bbd67449bb67994dde54e7e37991
+
+@@ @@
+             return "Event name already exists.";
+         }
+         //location
+-        if (!preg_match('/^[A-Za-z ]{6,30}$/', $location)) {
++        if (!preg_match('/[A-Za-z ]{6,30}$/', $location)) {
+             return "Location must be 6–30 letters only.";
+         }
+         //date format
+
+
+10) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:40    [M] PregMatchRemoveDollar [ID] 5bd5e668a7f325dd9bdfe8cfdcd28fde
+
+@@ @@
+             return "Event name already exists.";
+         }
+         //location
+-        if (!preg_match('/^[A-Za-z ]{6,30}$/', $location)) {
++        if (!preg_match('/^[A-Za-z ]{6,30}/', $location)) {
+             return "Location must be 6–30 letters only.";
+         }
+         //date format
+
+
+11) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:45    [M] PregMatchRemoveCaret [ID] cb086c595c8f14a54068adf1169e1a02
+
+@@ @@
+             return "Location must be 6–30 letters only.";
+         }
+         //date format
+-        if (!preg_match('/^\d{2}\/\d{2}\/\d{2}$/', $date)) {
++        if (!preg_match('/\d{2}\/\d{2}\/\d{2}$/', $date)) {
+             return "Date must be DD/MM/YY.";
+         }
+         //date >= tomorrow
+
+
+12) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:45    [M] PregMatchRemoveDollar [ID] bebc02b455f323ed8e58b5a139f64da2
+
+@@ @@
+             return "Location must be 6–30 letters only.";
+         }
+         //date format
+-        if (!preg_match('/^\d{2}\/\d{2}\/\d{2}$/', $date)) {
++        if (!preg_match('/^\d{2}\/\d{2}\/\d{2}/', $date)) {
+             return "Date must be DD/MM/YY.";
+         }
+         //date >= tomorrow
+
+
+13) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:46    [M] ReturnRemoval [ID] acdc01d1209f7e5415a3c9e4e73d7132
+
+@@ @@
+         }
+         //date format
+         if (!preg_match('/^\d{2}\/\d{2}\/\d{2}$/', $date)) {
+-            return "Date must be DD/MM/YY.";
++            
+         }
+         //date >= tomorrow
+         $dateObj = DateTime::createFromFormat('d/m/y', $date);
+
+
+14) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:51    [M] LessThan [ID] 923ede03a52e678eb87e10ef7fe39b05
+
+@@ @@
+         }
+         //date >= tomorrow
+         $dateObj = DateTime::createFromFormat('d/m/y', $date);
+-        if (!$dateObj || $dateObj < new DateTime('+1 day')) {
++        if (!$dateObj || $dateObj <= new DateTime('+1 day')) {
+             return "Date must be at least tomorrow.";
+         }
+         //time
+
+
+15) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:56    [M] PregMatchRemoveCaret [ID] cb1aadb501b1f5f7cce893d4f55c75f6
+
+@@ @@
+             return "Date must be at least tomorrow.";
+         }
+         //time
+-        if (!preg_match('/^(2[0-3]|[0-1]?\d):[0-5]\d$/', $time)) {
++        if (!preg_match('/(2[0-3]|[0-1]?\d):[0-5]\d$/', $time)) {
+             return "Time must be HH:MM.";
+         }
+         //performer name
+
+
+16) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:56    [M] PregMatchRemoveDollar [ID] 7a8c6234a2caaca790c96718f18bfccf
+
+@@ @@
+             return "Date must be at least tomorrow.";
+         }
+         //time
+-        if (!preg_match('/^(2[0-3]|[0-1]?\d):[0-5]\d$/', $time)) {
++        if (!preg_match('/^(2[0-3]|[0-1]?\d):[0-5]\d/', $time)) {
+             return "Time must be HH:MM.";
+         }
+         //performer name
+
+
+17) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:61    [M] PregMatchRemoveCaret [ID] 3f97dce1e12f8cc43fbe8b0e048d5317
+
+@@ @@
+             return "Time must be HH:MM.";
+         }
+         //performer name
+-        if (!preg_match('/^[A-Za-z ]{4,15}$/', $performer)) {
++        if (!preg_match('/[A-Za-z ]{4,15}$/', $performer)) {
+             return "Performer must be 4–15 letters.";
+         }
+         //tickets
+
+
+18) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:61    [M] PregMatchRemoveDollar [ID] 18cab7de65138c2f7c5948024533a605
+
+@@ @@
+             return "Time must be HH:MM.";
+         }
+         //performer name
+-        if (!preg_match('/^[A-Za-z ]{4,15}$/', $performer)) {
++        if (!preg_match('/^[A-Za-z ]{4,15}/', $performer)) {
+             return "Performer must be 4–15 letters.";
+         }
+         //tickets
+
+
+19) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:66    [M] LessThan [ID] d580d0928a3f340d2705b68686fb8ff8
+
+@@ @@
+             return "Performer must be 4–15 letters.";
+         }
+         //tickets
+-        if ($tickets < 30 || $tickets > 1000) {
++        if ($tickets <= 30 || $tickets > 1000) {
+             return "Tickets must be 30–1000.";
+         }
+         return null;
+
+
+20) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Controllers\EventController.php:66    [M] GreaterThan [ID] 87fc9338d13c54e021f9c8116d2f3347
+
+@@ @@
+             return "Performer must be 4–15 letters.";
+         }
+         //tickets
+-        if ($tickets < 30 || $tickets > 1000) {
++        if ($tickets < 30 || $tickets >= 1000) {
+             return "Tickets must be 30–1000.";
+         }
+         return null;
+
+
+21) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\Event.php:23    [M] DecrementInteger [ID] f874cb2274665645e87dda91dd8dde1e
 
 @@ @@
      private $performer;
@@ -17,7 +277,7 @@ Escaped mutants:
          $this->location = $location;
 
 
-2) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\Event.php:23    [M] IncrementInteger [ID] 35ceb309bcb439192e50cb1ee6600133
+22) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\Event.php:23    [M] IncrementInteger [ID] 35ceb309bcb439192e50cb1ee6600133
 
 @@ @@
      private $performer;
@@ -30,7 +290,7 @@ Escaped mutants:
          $this->location = $location;
 
 
-3) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\User.php:25    [M] ReturnRemoval [ID] a26565107319dbf2c83cf1856c4f1cc6
+23) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\User.php:25    [M] ReturnRemoval [ID] a26565107319dbf2c83cf1856c4f1cc6
 
 @@ @@
      }
@@ -43,7 +303,7 @@ Escaped mutants:
      {
 
 
-4) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\User.php:44    [M] MethodCallRemoval [ID] 3273b5a2f43b16c0cb228c82fa31ceeb
+24) C:\xampp\htdocs\projectEngineering\TicketMaster\app\Models\User.php:44    [M] MethodCallRemoval [ID] 3273b5a2f43b16c0cb228c82fa31ceeb
 
 @@ @@
              $this->isAdmin = $row['accAdmin'];
