@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //making an instance of the AuthController so we can use its login method
     // AuthController is namespaced under App\Controllers; use fully-qualified name here
-    $auth = new \App\Controllers\AuthController();
+    $auth = new AuthController();
     $result = $auth->login($email, $password);
 
     //if the result from login is an error string display it

@@ -53,11 +53,12 @@ use App\Models\Event;
             <?= htmlspecialchars($event->getTime()) ?>
 
         <?php if ($isFuture): ?>
-            <form action="../Event/bookingDelete.php" method="POST" style="display:inline;" 
-                onsubmit="return confirm('Are you sure you want to cancel this booking?');">
-                <input type="hidden" name="eventID" value="<?= $eventID ?>">
-                <button type="submit">Cancel</button>
-            </form>
+        <form action="../Booking/cancelBookingRouter.php"
+            method="POST"
+            onsubmit="return confirm('Are you sure you want to cancel this booking?');">
+            <input type="hidden" name="eventID" value="<?= $eventID ?>">
+            <button type="submit">Cancel</button>
+        </form>
         <?php endif; ?>
 
         </li>

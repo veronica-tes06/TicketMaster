@@ -15,12 +15,11 @@
  *Admins are moved to adminEvents.php
 */
 
-namespace App\Controllers;
+require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../controllers/EventController.php';
 
 use App\Models\User;
 
-require_once __DIR__ . '/../models/User.php';
-require_once __DIR__ . '/../controllers/EventController.php';
 
 class AuthController {
     private function validateCredentials(string $email, string $password): array {
@@ -107,5 +106,93 @@ class AuthController {
         }
         //assumption kindof 
         return 'Email already associated with an account.';
+    }
+
+
+    // Get all bookings for the logged-in user
+    public function getBookings()
+    {
+        if (!isset($_SESSION['user']['accID'])) {
+            return [];
+        }
+
+        require __DIR__ . '/../config/connect.php';
+        $accID = $_SESSION['user']['accID'];
+
+        // Get list from database
+        $stmt = $db->prepare("SELECT eventID FROM eventDetails WHERE accID = ?");
+        $stmt->execute([$accID]);
+
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+
+    // Cancel a booking
+    public function cancelBooking($eventID)
+    {
+        if (!isset($_SESSION['user']['accID'])) {
+            header("Location: ../User/login.php");
+            exit;
+        }
+
+        require __DIR__ . '/../config/connect.php';
+
+        $accID = $_SESSION['user']['accID'];
+
+        // Delete from DB
+        $stmt = $db->prepare("DELETE FROM eventDetails WHERE accID = ? AND eventID = ? LIMIT 1");
+        $stmt->execute([$accID, $eventID]);
+
+        // Remove from session list
+        if (($key = array_search($eventID, $_SESSION['user']['bookings'])) !== false) {
+            unset($_SESSION['user']['bookings'][$key]);
+            $_SESSION['user']['bookings'] = array_values($_SESSION['user']['bookings']);
+        }
+
+        // Redirect back to account
+        header("Location: ../User/account.php");
+        exit;
+    }
+
+
+    // Create a new booking
+    public function createBooking($eventID, $ticketAmount)
+    {
+        if (!isset($_SESSION['user']['accID'])) {
+            header("Location: ../User/login.php");
+            exit;
+        }
+
+        require __DIR__ . '/../config/connect.php';
+
+        $accID = $_SESSION['user']['accID'];
+
+        // Prevent duplicate booking
+        $check = $db->prepare("SELECT * FROM eventDetails WHERE accID = ? AND eventID = ?");
+        $check->execute([$accID, $eventID]);
+
+        if ($check->rowCount() > 0) {
+            die("You already booked this event.<br><br>
+                <a href=\"../Event/eventsRouter.php\">Back to Events</a>");
+        }
+
+        // Insert booking
+        $stmt = $db->prepare("
+            INSERT INTO eventDetails (accID, eventID, eventTicketAMT)
+            VALUES (?, ?, ?)
+        ");
+
+        if ($stmt->execute([$accID, $eventID, $ticketAmount])) {
+
+            // Add to session
+            $_SESSION['user']['bookings'][] = $eventID;
+
+            // Load confirmation page view
+            require __DIR__ . '/../views/Booking/bookingPage.php';
+            exit;
+        }
+
+        echo "<p style='color:red;'>Booking failed.</p>";
+        echo '<br><a href="../Event/eventsRouter.php">Back</a>';
     }
 }

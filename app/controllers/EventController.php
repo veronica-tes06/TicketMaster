@@ -14,12 +14,11 @@
  *Verify valid unique event ID is created and saved in DB
  */
 
-namespace App\Controllers;
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../models/Event.php';
 
 use App\Models\Event;
 
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../models/Event.php';
 
 class EventController
 {

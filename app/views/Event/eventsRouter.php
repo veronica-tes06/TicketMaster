@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/../../controllers/EventController.php';
 
-use App\Controllers\EventController;
 
 session_start();
 
