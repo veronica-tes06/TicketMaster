@@ -27,7 +27,7 @@ $accAdmin = $_SESSION['user']['accAdmin'] ?? 0;
     <p><strong>Min Tickets:</strong> <?= htmlspecialchars($event->getMinTickets()) ?></p>
 
     <?php if ($accAdmin == 0): ?>
-        <form action="bookEvent.php" method="POST">
+        <form action="bookEventRouter.php" method="POST">
             <input type="hidden" name="eventID" value="<?= $event->getId() ?>">
             <button type="submit">Book Ticket</button>
         </form>
@@ -45,7 +45,7 @@ $accAdmin = $_SESSION['user']['accAdmin'] ?? 0;
     <?php endif; ?>
 
     <br><br>
-    <a href="../User/logout.php">Logout</a>
+    <a href="../Event/eventsRouter.php">Back to Events</a><br>
 </body>
 
 </html>

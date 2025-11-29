@@ -64,6 +64,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['accAdmin'] != 1) {
         <?php endforeach; ?>
     </table>
     <br>
+    <a href="../User/account.php">My Account</a><br>
     <a href="../User/logout.php">Logout</a>
 </body>
 

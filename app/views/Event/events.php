@@ -56,7 +56,7 @@ $accBookings = $_SESSION['user']['bookings'] ?? []; //or since if they register 
 
     <br>
 
-    <a href="../Event/myEvents.php">My Events</a><br>
+    <a href="../User/account.php">My Account</a><br>
     <a href="../User/logout.php">Logout</a>
 
 </body>
